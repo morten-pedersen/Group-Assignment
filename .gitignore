@@ -104,3 +104,4 @@ ENV/
 .idea/modules.xml
 .idea/vcs.xml
 .idea/other.xml
+.idea/codeStyles/codeStyleConfig.xml
