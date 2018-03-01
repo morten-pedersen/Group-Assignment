@@ -2,17 +2,6 @@ import os
 import re
 
 
-def getTrainData(trainDataFolder):
-	"""
-	This will get the files in the folder
-	:param trainDataFolder: the path to the folder
-	:return: a list of the files in the folder
-	"""
-	cwd = os.getcwd()
-
-	return os.listdir(cwd + trainDataFolder)
-
-
 def getfilelist(pathname):
 	"""
 	The function scans through the given directory looking for .txt files and will put their path's in a list and sort it
@@ -23,12 +12,23 @@ def getfilelist(pathname):
 	cw = os.getcwd()  # cw is current working directory
 	directories = []
 	for entry in os.scandir(cw):  # scans through the current working directory
-		while not entry.is_file():  # if it is a folder go deeper
-			for entry in os.scandir(entry.path):
-				if ".txt" in entry.name:
-					directories.append(entry.path)
-	directories.sort()
+		if ".txt" in entry.name:
+			directories.append(entry.path)
 	return directories
+
+
+def getwords(listWithPaths):
+	finalListOfWords = []
+	for path in listWithPaths:
+		with open(path, encoding = "utf8") as file:
+			text = file.read().lower()
+			file.close()
+			text = re.sub('[^a-z\ \']+', "", text)
+			words = list(text.split())
+			for word in words:
+				if word.__len__() > 1:
+					finalListOfWords.append(word)
+	return finalListOfWords
 
 
 def getwordfreqs(pathname):
