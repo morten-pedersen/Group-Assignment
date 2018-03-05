@@ -23,7 +23,7 @@ def getwords(listWithPaths):
 		with open(path, encoding = "utf8") as file:
 			text = file.read().lower()
 			file.close()
-			text = re.sub('[^a-z\ \']+', "", text)
+			text = re.sub('[\'()!.,]', '', text) # remove characters we dont want
 			words = list(text.split())
 			for word in words:
 				if word.__len__() > 1:
