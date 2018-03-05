@@ -23,6 +23,7 @@ def getwords(listWithPaths):
 	:param listWithPaths: a list containing the paths of the txt files
 	:return: a list containing the words
 	"""
+	br="br"
 	finalListOfWords = []
 	for path in listWithPaths:
 		with open(path, encoding = "utf8") as file:
@@ -32,7 +33,7 @@ def getwords(listWithPaths):
 			text = re.sub('[<>]', ' ', text)
 			words = list(text.split())
 			for word in words:
-				if word.__len__() > 1 and word is not "br":  # check if word is more than one character and is not br which is from the html markup
+				if word.__len__() > 1 and word not in br:  # check if word is more than one character and is not br which is from the html markup
 					finalListOfWords.append(word)
 	return finalListOfWords
 
