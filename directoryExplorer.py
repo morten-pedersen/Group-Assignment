@@ -23,10 +23,10 @@ def getwords(listWithPaths):
 		with open(path, encoding = "utf8") as file:
 			text = file.read().lower()
 			file.close()
-			text = re.sub('[\'()!.,]', '', text) # remove characters we dont want
+			text = re.sub('[\'()/!.":<>,]', '', text)  # remove characters we dont want
 			words = list(text.split())
 			for word in words:
-				if word.__len__() > 1:
+				if word.__len__() > 1 and word is not "br":  # check if word is more than one character and is not br which is from the html markup
 					finalListOfWords.append(word)
 	return finalListOfWords
 
