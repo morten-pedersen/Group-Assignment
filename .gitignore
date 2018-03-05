@@ -105,3 +105,4 @@ ENV/
 .idea/vcs.xml
 .idea/other.xml
 .idea/codeStyles/codeStyleConfig.xml
+.idea/inspectionProfiles/profiles_settings.xml
