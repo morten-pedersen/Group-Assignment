@@ -53,33 +53,29 @@ def makeWordFrequnencyList(listOfWords):
 	return dictionary
 
 
-# def getWordFrequency(listOfWords):
-# 	for word in listOfWords:
-
-
-def getcommonwords(dicts):  # Maybe useful for testing to see what the most common words are
+def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testing to see what the most common words are
 	"""
-	The function finds the most common words in the given dictionaries and returns a list of the most common ones in desc order.
-	:param dicts: a list containing the dictionaries
+	The function finds the most common words in the given dictionary and returns a list of the most common ones in desc order.
+	:param dictionary: a dictionary with words and their frequency
+	:param wordsToReturn: the number of words to return - default is all the words set an integer to specify
 	:return: a list with the most common words
 	"""
-	commonWords = []
+	commonWords = []  # list containing the most common words
 	commonWordsDictionary = {}
 	# finding the frequency of the words in all the dictionaries
-	for dict in dicts:
-		currentDict = dict
-		for key in currentDict:
-			word = key
-			freq = currentDict.get(key)
-			if commonWordsDictionary.get(word) is not None:
-				commonWordsDictionary[word] = freq + commonWordsDictionary.get(word)
-			else:
-				commonWordsDictionary[word] = freq
+	for key in dictionary:
+		word = key
+		freq = dictionary.get(key)
+		if commonWordsDictionary.get(word) is not None:
+			commonWordsDictionary[word] = freq + commonWordsDictionary.get(word)
+		else:
+			commonWordsDictionary[word] = freq
 
 	while commonWordsDictionary.__len__() > 0:  # finding the most common words and add them to the list.
-		mostCommon = max(commonWordsDictionary, key = lambda i: commonWordsDictionary[i])
+		mostCommon = max(commonWordsDictionary, key = lambda i:commonWordsDictionary[i])
 		commonWords.append(mostCommon)
 		commonWordsDictionary.__delitem__(mostCommon)
-		if commonWords.__len__() == 4:
-			return commonWords
+		if wordsToReturn is not None:
+			if commonWords.__len__() == 4:  # choose how many words to return
+				return commonWords
 	return commonWords
