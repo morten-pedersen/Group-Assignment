@@ -37,16 +37,13 @@ def getwords(listWithPaths):
 	return finalListOfWords
 
 
-def getwordfreqs(pathname):
+def makeWordFrequnencyList(listOfWords):
 	"""
-	Find the frequency of the words in the file in the given parameter, adding them to a dictionary as keys and their
+	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys and their
 	frequency as value
-	:param pathname: the path directly to the file, including .txt
+	:param listOfWords: the list of files
 	:return: a dictionary with words as keys and frequency as values
 	"""
-	file = open(pathname)  # open file
-	listOfWords = re.findall(r'\w+', file.read().lower())  # find the words and put them in a list
-	file.close()  # close file
 	dictionary = {}
 	for word in listOfWords:  # add the words to a dictionary as keys and their frequency as value.
 		if word in dictionary:
