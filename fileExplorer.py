@@ -23,31 +23,27 @@ def getwords(listWithPaths):
 	:param listWithPaths: a list containing the paths of the txt files
 	:return: a list containing the words
 	"""
-	br="br"
-	finalListOfWords = []
+	finalListOfWords = []  # this is the list of words that are returned
 	for path in listWithPaths:
 		with open(path, encoding = "utf8") as file:
 			text = file.read().lower()
 			file.close()
-			text = re.sub('[\'()/!.":,]', '', text)  # remove characters we dont want
-			text = re.sub('[<>]', ' ', text)
+			text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
+			text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
 			words = list(text.split())
 			for word in words:
-				if word.__len__() > 1 and word not in br:  # check if word is more than one character and is not br which is from the html markup
+				if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
 					finalListOfWords.append(word)
 	return finalListOfWords
 
 
-def getwordfreqs(pathname):
+def makeWordFrequnencyList(listOfWords):
 	"""
-	Find the frequency of the words in the file in the given parameter, adding them to a dictionary as keys and their
+	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys and their
 	frequency as value
-	:param pathname: the path directly to the file, including .txt
+	:param listOfWords: the list of files
 	:return: a dictionary with words as keys and frequency as values
 	"""
-	file = open(pathname)  # open file
-	listOfWords = re.findall(r'\w+', file.read().lower())  # find the words and put them in a list
-	file.close()  # close file
 	dictionary = {}
 	for word in listOfWords:  # add the words to a dictionary as keys and their frequency as value.
 		if word in dictionary:
@@ -57,33 +53,29 @@ def getwordfreqs(pathname):
 	return dictionary
 
 
-# def getWordFrequency(listOfWords):
-# 	for word in listOfWords:
-
-
-def getcommonwords(dicts):  # Maybe useful for testing to see what the most common words are
+def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testing to see what the most common words are
 	"""
-	The function finds the most common words in the given dictionaries and returns a list of the most common ones in desc order.
-	:param dicts: a list containing the dictionaries
+	The function finds the most common words in the given dictionary and returns a list of the most common ones in desc order.
+	:param dictionary: a dictionary with words and their frequency
+	:param wordsToReturn: the number of words to return - default is all the words set an integer to specify
 	:return: a list with the most common words
 	"""
-	commonWords = []
+	commonWords = []  # list containing the most common words
 	commonWordsDictionary = {}
 	# finding the frequency of the words in all the dictionaries
-	for dict in dicts:
-		currentDict = dict
-		for key in currentDict:
-			word = key
-			freq = currentDict.get(key)
-			if commonWordsDictionary.get(word) is not None:
-				commonWordsDictionary[word] = freq + commonWordsDictionary.get(word)
-			else:
-				commonWordsDictionary[word] = freq
+	for key in dictionary:
+		word = key
+		freq = dictionary.get(key)
+		if commonWordsDictionary.get(word) is not None:
+			commonWordsDictionary[word] = freq + commonWordsDictionary.get(word)
+		else:
+			commonWordsDictionary[word] = freq
 
 	while commonWordsDictionary.__len__() > 0:  # finding the most common words and add them to the list.
-		mostCommon = max(commonWordsDictionary, key = lambda i: commonWordsDictionary[i])
+		mostCommon = max(commonWordsDictionary, key = lambda i:commonWordsDictionary[i])
 		commonWords.append(mostCommon)
 		commonWordsDictionary.__delitem__(mostCommon)
-		if commonWords.__len__() == 4:
-			return commonWords
+		if wordsToReturn is not None:
+			if commonWords.__len__() == wordsToReturn:  # choose how many words to return
+				return commonWords
 	return commonWords
