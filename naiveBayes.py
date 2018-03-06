@@ -18,6 +18,8 @@ def addWords(path):
 
 posTrainPathList = fileExplorer.getfilelist(posTrainPath)
 posWords = fileExplorer.getwords(posTrainPathList)
+frequency = fileExplorer.makeWordFrequnencyList(posWords)
+commonWords = fileExplorer.getCommonWords(frequency, 10)
 # print(posTrainFiles)
 # posTrainFiles.pop()
 print("hello")
