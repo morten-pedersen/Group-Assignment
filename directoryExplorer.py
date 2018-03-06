@@ -23,7 +23,7 @@ def getwords(listWithPaths):
 	:param listWithPaths: a list containing the paths of the txt files
 	:return: a list containing the words
 	"""
-	finalListOfWords = []
+	finalListOfWords = [] # this is the list of words that are returned
 	for path in listWithPaths:
 		with open(path, encoding = "utf8") as file:
 			text = file.read().lower()
