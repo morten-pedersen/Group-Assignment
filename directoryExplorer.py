@@ -28,7 +28,7 @@ def getwords(listWithPaths):
 		with open(path, encoding = "utf8") as file:
 			text = file.read().lower()
 			file.close()
-			text = re.sub('[<>]', ' ', text)
+			text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
 			text = re.sub('[<>]', ' ', text) # adding space where < or > exists to separate br tags from words
 			words = list(text.split())
 			for word in words:
