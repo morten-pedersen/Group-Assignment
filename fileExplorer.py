@@ -76,6 +76,6 @@ def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testin
 		commonWords.append(mostCommon)
 		commonWordsDictionary.__delitem__(mostCommon)
 		if wordsToReturn is not None:
-			if commonWords.__len__() == 4:  # choose how many words to return
+			if commonWords.__len__() == wordsToReturn:  # choose how many words to return
 				return commonWords
 	return commonWords
