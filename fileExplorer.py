@@ -37,7 +37,7 @@ def getwords(listWithPaths):
 	return finalListOfWords
 
 
-def makeWordFrequnencyList(listOfWords):
+def makeWordFrequencyList(listOfWords):
 	"""
 	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys and their
 	frequency as value
