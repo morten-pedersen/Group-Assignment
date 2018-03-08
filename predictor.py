@@ -1,3 +1,4 @@
+import naiveBayes
 import re
 
 def openTestText ():
