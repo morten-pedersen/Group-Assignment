@@ -37,3 +37,18 @@ def makeClassPrediction(text, H_wordCountDict, H_probability, H_Count):
 	:param H_Count: ????? what is this ?????
 	:return: probability from 0 - 1???
 	"""
+
+def finalPrediction(text):
+
+	posPrediction = makeClassPrediction(text, posFrequency, posProbability, testDictionary)
+
+	negPrediction = makeClassPrediction(text, negFrequency, negProbability, testDictionary)
+
+	if negPrediction > posPrediction:
+		return -1
+	return 1
+
+print("For this review: {0}".format(reviews[0][0]))
+print("")
+print("The predicted label is ", make_decision(reviews[0][0]))
+print("The actual label is ", reviews[0][1])
