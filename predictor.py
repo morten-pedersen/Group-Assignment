@@ -1,6 +1,7 @@
 import naiveBayes
 import re
 import os
+import fileExplorer
 
 
 def openTestText():
@@ -28,16 +29,20 @@ def testTextFrequency(listOfTestWords):
 	return testDictionary
 
 
-def makeClassPrediction(text, H_wordCountDict, H_probability, H_Count):
+def makeClassPrediction(text, wordCountDict, priorProbability, wordCountInReview):
 	"""
 	H is a negative or positive review
 	:param text: the text of the review
-	:param H_wordCountDict: the dictionary containing the counted words in the type of review
-	:param H_probability: The probability of it being negative or positive? So by 0.5 if the set of review is divided in equal parts?
-	:param H_Count: ????? what is this ?????
+	:param wordCountDict: the dictionary containing the counted words in the type of review
+	:param priorProbability: The probability of it being negative or positive? So by 0.5 if the set of review is divided in equal parts?
+	:param wordCountInReview: ????? what is this ?????
 	:return: probability from 0 - 1???
 	"""
-
+	path = "her mangler vi path"
+	countedText = fileExplorer.getwords(path = path)
+	countedText = fileExplorer.makeWordFrequencyList(countedText)
+	for word in countedText:
+		prediction*=
 
 
 def finalPrediction(text):
@@ -49,5 +54,11 @@ def finalPrediction(text):
 	if negPrediction > posPrediction:
 		return -1
 	return 1
+
+print("For this review: {0}".format(reviews[0][0]))
+print("")
+print("The predicted label is ", make_decision(reviews[0][0]))
+print("The actual label is ", reviews[0][1])
+
 
 
