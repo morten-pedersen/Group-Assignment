@@ -1,9 +1,11 @@
 import naiveBayes
 import re
+import os
 
 def openTestText ():
 	listOfTestWords = [] # Opens a single textfile with path
-	with open("C:\\Users\\morte\\PycharmProjects\\Group-Assignment\\Data\\test\\pos\\25_10.txt", encoding = "utf8") as file:
+	path =os.getcwd() + "\\Data\\test\\pos\\25_10.txt"
+	with open(path, encoding = "utf8") as file:
 		testText = file.read().lower()
 		file.close()
 		testText = re.sub('[\'()/!.":,!?]', '', testText)
@@ -12,7 +14,7 @@ def openTestText ():
 		for testWord in testWords:
 			if testWord.__len__() > 1 and testWord not in "br":
 				listOfTestWords.append(testWord)
-	return listOfTestWords()
+	return listOfTestWords
 
 def testTextFrequency(listOfTestWords):
 	testDictionary = {}
