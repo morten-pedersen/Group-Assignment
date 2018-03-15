@@ -26,12 +26,10 @@ negFrequency = fileExplorer.makeWordFrequencyList(negWords)
 commonWords = fileExplorer.getCommonWords(frequency, 50)
 
 #prior probabilities
-'''
-negProbability = negTrainPathList / len(posTrainPathList + negTrainPathList)
-posProbability = posTrainPathList / len(posTrainPathList + negTrainPathList)
-print("Prior probability is:", posProbability)
+#negProbability = negTrainPathList / len(posTrainPathList + negTrainPathList)
+#posProbability = posTrainPathList / len(posTrainPathList + negTrainPathList)
+#print("Prior probability is:", posProbability)
 
-'''
 
 print("Test complete.")
 print(commonWords)
