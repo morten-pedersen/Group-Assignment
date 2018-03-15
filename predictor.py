@@ -2,9 +2,10 @@ import naiveBayes
 import re
 import os
 
-def openTestText ():
-	listOfTestWords = [] # Opens a single textfile with path
-	path =os.getcwd() + "\\Data\\test\\pos\\25_10.txt"
+
+def openTestText():
+	listOfTestWords = []  # Opens a single textfile with path
+	path = os.getcwd() + "\\Data\\test\\pos\\25_10.txt"
 	with open(path, encoding = "utf8") as file:
 		testText = file.read().lower()
 		file.close()
@@ -16,6 +17,7 @@ def openTestText ():
 				listOfTestWords.append(testWord)
 	return listOfTestWords
 
+
 def testTextFrequency(listOfTestWords):
 	testDictionary = {}
 	for testWord in openTestText():
@@ -26,4 +28,12 @@ def testTextFrequency(listOfTestWords):
 	return testDictionary
 
 
-
+def makeClassPrediction(text, H_wordCountDict, H_probability, H_Count):
+	"""
+	H is a negative or positive review
+	:param text: the text of the review
+	:param H_wordCountDict: the dictionary containing the counted words in the type of review
+	:param H_probability: The probability of it being negative or positive? So by 0.5 if the set of review is divided in equal parts?
+	:param H_Count: ????? what is this ?????
+	:return: probability from 0 - 1???
+	"""
