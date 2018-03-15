@@ -17,25 +17,41 @@ def getfilelist(pathname):
 	return directories
 
 
-def getwords(listWithPaths):
+def getwords(listWithPaths = None, path = None):
 	"""
 	Function opens the files given in the list of paths finds the words and removes unwanted characters then returns a list of the words
+	Alternatively it opens the file given in the path
 	:param listWithPaths: a list containing the paths of the txt files
+	:param path: optional, if included, only the file given in the path will be gone through
 	:return: a list containing the words
 	"""
 	finalListOfWords = []  # this is the list of words that are returned
-	for path in listWithPaths:
-		with open(path, encoding = "utf8") as file:
-			text = file.read().lower()
-			file.close()
-			text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
-			text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
-			words = list(text.split())
-			for word in words:
-				if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
-					finalListOfWords.append(word)
-	return finalListOfWords
+	if path is None: # multiple files being processed
+		for path in listWithPaths:
+			removeCharacters(path, finalListOfWords)
 
+		return finalListOfWords
+	else: # one file being processed
+		with open(path, encoding = "utf8") as file:
+			removeCharacters(path, finalListOfWords)
+		return finalListOfWords
+
+def removeCharacters(path, finalListOfWords):
+	"""
+	Function removes character from the file given in the path and adds the words them to the list of words
+	:param path: the path to the file
+	:param finalListOfWords: the list containing the files
+	:return: Nothing
+	"""
+	with open(path, encoding = "utf8") as file:
+		text = file.read().lower()
+		file.close()
+		text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
+		text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
+		words = list(text.split())
+		for word in words:
+			if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
+				finalListOfWords.append(word)
 
 def makeWordFrequencyList(listOfWords):
 	"""
@@ -72,7 +88,7 @@ def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testin
 			commonWordsDictionary[word] = freq
 
 	while commonWordsDictionary.__len__() > 0:  # finding the most common words and add them to the list.
-		mostCommon = max(commonWordsDictionary, key = lambda i:commonWordsDictionary[i])
+		mostCommon = max(commonWordsDictionary, key = lambda i: commonWordsDictionary[i])
 		commonWords.append(mostCommon)
 		commonWordsDictionary.__delitem__(mostCommon)
 		if wordsToReturn is not None:
