@@ -26,15 +26,14 @@ def getwords(listWithPaths = None, path = None):
 	:return: a list containing the words
 	"""
 	finalListOfWords = []  # this is the list of words that are returned
-	if path is None: # multiple files being processed
+	if path is None:  # multiple files being processed
 		for path in listWithPaths:
-			removeCharacters(path, finalListOfWords)
+			removeCharacters(path, finalListOfWords)  # removing unwanted characters
+		return finalListOfWords
+	else:  # one file being processed
+		removeCharacters(path, finalListOfWords)  # removing unwanted characters
+	return finalListOfWords
 
-		return finalListOfWords
-	else: # one file being processed
-		with open(path, encoding = "utf8") as file:
-			removeCharacters(path, finalListOfWords)
-		return finalListOfWords
 
 def removeCharacters(path, finalListOfWords):
 	"""
@@ -53,7 +52,8 @@ def removeCharacters(path, finalListOfWords):
 			if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
 				finalListOfWords.append(word)
 
-def makeWordFrequencyList(listOfWords):
+
+def makeWordFrequencyDict(listOfWords):
 	"""
 	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys and their
 	frequency as value
@@ -88,7 +88,7 @@ def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testin
 			commonWordsDictionary[word] = freq
 
 	while commonWordsDictionary.__len__() > 0:  # finding the most common words and add them to the list.
-		mostCommon = max(commonWordsDictionary, key = lambda i: commonWordsDictionary[i])
+		mostCommon = max(commonWordsDictionary, key = lambda i:commonWordsDictionary[i])
 		commonWords.append(mostCommon)
 		commonWordsDictionary.__delitem__(mostCommon)
 		if wordsToReturn is not None:
