@@ -1,5 +1,6 @@
 import os
 import predictor as predict
+import time
 
 
 def testingPredictions():
@@ -33,4 +34,8 @@ def testingPredictions():
 	prediction = predict.finalPrediction(posPrediction, negPrediction)
 	print("It is a " + prediction + " review")
 
+
+startTime = time.time()
 testingPredictions()  # running the test
+endTime = time.time()
+print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
