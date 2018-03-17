@@ -63,40 +63,6 @@ def finalPrediction(posPrediction, negPrediction):
 	else:
 		return "negative"
 
-
-def testingPredictions():
-	"""
-	This function allow us to test quickly what the predictions are
-	"""
-	posReviewPath = os.getcwd() + "\\Data\\test\\pos\\1_10.txt"  # positive review
-	negReviewPath = os.getcwd() + "\\Data\\test\\neg\\0_2.txt"  # negative review
-	trainingData = getInitializedTrainData()
-	posFrequency = trainingData["posFreq"]
-	negFrequency = trainingData["negFreq"]
-	posProbability = trainingData["posProb"]
-	negProbability = trainingData["negProb"]
-	print("Predicting if a positive review is positive or negative...")
-	print("positive prediction is")
-	posPrediction = makeClassPrediction(posReviewPath, posFrequency, posProbability)
-	print(posPrediction)
-	print("negative prediction is")
-	negPrediction = makeClassPrediction(posReviewPath, negFrequency, negProbability)
-	print(negPrediction)
-	prediction = finalPrediction(posPrediction, negPrediction)
-	print("It is a " + prediction + " review")
-	print("")
-	print("Predicting if a negative review is positive or negative...")
-	print("positive prediction is")
-	posPrediction = makeClassPrediction(negReviewPath, posFrequency, posProbability)
-	print(posPrediction)
-	print("negative prediction is")
-	negPrediction = makeClassPrediction(negReviewPath, negFrequency, negProbability)
-	print(negPrediction)
-	prediction = finalPrediction(posPrediction, negPrediction)
-	print("It is a " + prediction + " review")
-
-
-testingPredictions()  # running the test
 # def finalPrediction(text):
 #
 # 	posPrediction = makeClassPrediction(text, posFrequency, posProbability, testDictionary)
