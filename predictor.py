@@ -2,24 +2,35 @@ import os
 import fileHandler
 import math
 
-dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
-os.chdir(dir_path)
-posTrainPath = os.getcwd() + "\\Data\\train\\pos\\"  # relative path to positive train positive reviews, make sure data folder is in same directory as this py file.
-negTrainPath = os.getcwd() + "\\Data\\train\\neg\\"
-posTrainFiles = fileHandler.getfilelist(posTrainPath)  # list of files
-negTrainFiles = fileHandler.getfilelist(negTrainPath)  # list of files
-posWords = fileHandler.getwords(posTrainFiles)  # list of words
-negWords = fileHandler.getwords(negTrainFiles)  # list of words
-posFrequency = fileHandler.makeWordFrequencyDict(
-	posWords)  # dictionary with frequency of words found in positive reviews
-negFrequency = fileHandler.makeWordFrequencyDict(
-	negWords)  # dictionary with frequency of words found in negative reviews
-posProbability = posTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # baseline prob
-negProbability = negTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # .50ish?
-dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
-os.chdir(dir_path)
-posReviewPath = os.getcwd() + "\\Data\\test\\pos\\1_10.txt"  # positive review
-negReviewPath = os.getcwd() + "\\Data\\test\\neg\\0_2.txt"  # negative review
+
+def getInitializedTrainData():
+	"""
+	This function will go through the training set and return the positive and negative wordfrequency as well as the their probability.
+	:return: A dictionary with the following keys as strings:
+	posFreq - the frequency of words that are in positive reviews
+	negFreq - the frequency of words that are in negative reviews
+	posProb - the positive probability - amount of positive reviews / total number of reviews
+	negProb - the negative probability - amount of negative reviews / total number of reviews
+	"""
+	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
+	os.chdir(dir_path)
+	posTrainPath = os.getcwd() + "\\Data\\train\\pos\\"  # relative path to positive train positive reviews, make sure data folder is in same directory as this py file.
+	negTrainPath = os.getcwd() + "\\Data\\train\\neg\\"
+	posTrainFiles = fileHandler.getfilelist(posTrainPath)  # list of files
+	negTrainFiles = fileHandler.getfilelist(negTrainPath)  # list of files
+	posWords = fileHandler.getwords(posTrainFiles)  # list of words
+	negWords = fileHandler.getwords(negTrainFiles)  # list of words
+	posFrequency = fileHandler.makeWordFrequencyDict(
+		posWords)  # dictionary with frequency of words found in positive reviews
+	negFrequency = fileHandler.makeWordFrequencyDict(
+		negWords)  # dictionary with frequency of words found in negative reviews
+	posProbability = posTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # baseline prob
+	negProbability = negTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # .50ish?
+	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
+	os.chdir(dir_path)
+	initializedTrainingData = {"posFreq":posFrequency, "negFreq":negFrequency,
+							   "posProb":posProbability, "negProb":negProbability}
+	return initializedTrainingData
 
 
 def makeClassPrediction(path, wordCountDict, priorProb):
@@ -57,6 +68,13 @@ def testingPredictions():
 	"""
 	This function allow us to test quickly what the predictions are
 	"""
+	posReviewPath = os.getcwd() + "\\Data\\test\\pos\\1_10.txt"  # positive review
+	negReviewPath = os.getcwd() + "\\Data\\test\\neg\\0_2.txt"  # negative review
+	trainingData = getInitializedTrainData()
+	posFrequency = trainingData["posFreq"]
+	negFrequency = trainingData["negFreq"]
+	posProbability = trainingData["posProb"]
+	negProbability = trainingData["negProb"]
 	print("Predicting if a positive review is positive or negative...")
 	print("positive prediction is")
 	posPrediction = makeClassPrediction(posReviewPath, posFrequency, posProbability)
