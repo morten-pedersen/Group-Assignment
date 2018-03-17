@@ -36,6 +36,8 @@ def testingPredictions():
 
 
 startTime = time.time()
+print("Running testingPredictions...")
 testingPredictions()  # running the test
 endTime = time.time()
+print("Test is complete.")
 print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
