@@ -1,15 +1,11 @@
 # Group-Assignment
 
-Git repoet for vårt prosjekt
+This is our INFO284 group assignment so far.
+It is expected that the paths to the reviews are as in the following examples:
+Group-Assignment\Data\test\neg
+Group-Assignment\Data\train\pos
+Where Group-Assignment is the directory that the python source files are located.
+To test, just run testing.py
 
-Vet ikke hvor mye erfaring dere har med git, men når jeg har jobbet selv med prosjekter eller bidratt til andre så har det vært veldig 
-nyttig å lage nye bransjer hver gang man holder på med å legge til noe nytt eller prøver å fikse noe. 
-Så holdes dette separert fra master bransjen. 
-Når noe er ferdig så kan du lage en pull request og vi kan alle se igjennom det og kommentere
-det som er gjort før vi legger det til master bransjen.
-Når vi legger det til så kan vi squashe alle commits i pull requestet og så blir det lettere å revertere om det er noe som ødelegger.
 
-Pakker vi helt sikkert trenger:
-- pip install numpy
-
--Øyvind
+We know that the way we calculate the probability currently is incorrect. Any advice is welcomed. 

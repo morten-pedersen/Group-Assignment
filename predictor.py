@@ -142,7 +142,7 @@ def makeClassPrediction(wordCountDict, priorProb, path = None, text = None):
 		if word in wordCountDict:  # skip those words we don't have seen before
 			prediction += (wordCountDict[word]*(countedText[word] + 1))  # multiply word frequency
 	prediction = priorProb*prediction  # multiply prior probability
-	return round(math.log10(prediction), 5)  # return float with 5 decimals
+	return round(math.log10(prediction), 5)  # return float with 5 decimals TODO: this is probably wrong
 
 
 def finalPrediction(posPrediction, negPrediction):
