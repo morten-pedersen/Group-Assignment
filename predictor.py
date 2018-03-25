@@ -125,7 +125,7 @@ def predictTestReviews(trainingData = getInitializedTrainData(), testData = getI
 
 def makeClassPrediction(wordCountDict, priorProb, path = None, text = None):
 	"""
-	This function will predict if the review is positive or negative, depending on what is given as arguments
+	This function will predict if the review is positive or negative, depending on what wordcount dictionary that  is given as arguments
 	:param path: the path to the txt file
 	:param wordCountDict: the positive or negative review wordcounts
 	:param priorProb: the prior probability for positive or negative review, should be around 0.50

@@ -6,7 +6,7 @@ import predictor as predict
 
 def testingPredictions():
 	"""
-	This function allow us to test quickly what the predictions are
+	This test tests what the predictions are for a positive and negative test review
 	"""
 	startTime = time.time()
 	print("Running testingPredictions...")
@@ -48,6 +48,9 @@ def testingPredictions():
 
 
 def testingTestDataProcessing():
+	"""
+	This test checks that getIntitializedTestData() returns something
+	"""
 	startTime = time.time()
 	print("Running testingTestDataProcessing...")  # running the test
 	if predict.getIntitializedTestData() is not None:
@@ -60,6 +63,10 @@ def testingTestDataProcessing():
 
 
 def testPredicTestReviews():
+	"""
+	This test will try to predict all the test reviews.
+	Accuracy of the test and duration of test is printed.
+	"""
 	startTime = time.time()
 	print("Running testPredicTestReviews...")
 	results = predict.predictTestReviews()
@@ -72,6 +79,9 @@ def testPredicTestReviews():
 
 
 def main():
+	"""
+	The main method for testing, it executes the following tests.
+	"""
 	testPredicTestReviews()  # running test
 	print()
 	testingTestDataProcessing()  # running test

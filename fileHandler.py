@@ -17,12 +17,13 @@ def getfilelist(pathname):
 	return directories
 
 
-def getwords(listWithPaths = None, path = None):
+def getwords(listWithPaths = None, path = None):  # TODO throw error if none of the arguments are None
 	"""
 	Function opens the files given in the list of paths finds the words and removes unwanted characters then returns a list of the words
-	Alternatively it opens the file given in the path
-	:param listWithPaths: a list containing the paths of the txt files
-	:param path: optional, if included, only the file given in the path will be gone through
+	Alternatively it opens the file given in the path and removes unwanted characters
+	One of the arguments MUST be None.
+	:param listWithPaths: optional, a list with the paths to the text files, if included, all the text files will be gone through
+	:param path: optional, a path to the file, if included, only the file given in the path will be gone through
 	:return: a list containing the words
 	"""
 	finalListOfWords = []  # this is the list of words that are returned
@@ -37,7 +38,7 @@ def getwords(listWithPaths = None, path = None):
 
 def removeCharacters(path, finalListOfWords):
 	"""
-	Function removes character from the file given in the path and adds the words them to the list of words
+	Function removes character from the file given in the path and appends the words to the list of words
 	:param path: the path to the file
 	:param finalListOfWords: the list containing the files
 	:return: Nothing
@@ -55,7 +56,7 @@ def removeCharacters(path, finalListOfWords):
 
 def makeWordFrequencyDict(listOfWords):
 	"""
-	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys and their
+	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys with their
 	frequency as value
 	:param listOfWords: the list of files
 	:return: a dictionary with words as keys and frequency as values
