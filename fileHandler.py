@@ -1,5 +1,34 @@
 import os
+import pickle
 import re
+
+
+def save_object(obj, filename):
+	"""
+	This function can take an object and save it to the drive
+	# sample usage
+	# save_object(test, 'test.pkl')
+	:param obj: the object you want to save
+	:param filename: the name you want to give to the file that is created
+	"""
+	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
+	os.chdir(dir_path)
+	with open(filename, 'wb') as output:  # Overwrites any existing file.
+		pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
+
+def load_object(fileName):
+	"""
+	This function loads a saved object from the drive.
+	It has to be in the same folder where it is run from
+	# sample usage
+	# test = load_object("test.pkl")
+	:param fileName: the filename of the object
+	:return: the object
+	"""
+	with open(fileName, 'rb') as input:
+		file = pickle.load(input)
+	return file
 
 
 def getfilelist(pathname):
@@ -43,7 +72,7 @@ def removeCharacters(path, finalListOfWords):
 	:param finalListOfWords: the list containing the files
 	:return: Nothing
 	"""
-	with open(path, encoding = "utf8") as file:
+	with open(path, encoding = "utf8") as file:  # TODO try except pass??
 		text = file.read().lower()
 		file.close()
 		text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
