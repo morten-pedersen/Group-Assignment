@@ -23,11 +23,11 @@ def testingPredictions():
 	negProbability = trainingData["negProb"]
 	print("Predicting if a positive review is positive or negative...")
 	print("positive prediction is")
-	posPrediction = predict.makeClassPrediction(path = posReviewPath, wordCountDict = posFrequency,
+	posPrediction = predict.makeClassPrediction(path = posReviewPath, posOrNegWordCountDict = posFrequency,
 												priorProb = posProbability)
 	print(posPrediction)
 	print("negative prediction is")
-	negPrediction = predict.makeClassPrediction(path = posReviewPath, wordCountDict = negFrequency,
+	negPrediction = predict.makeClassPrediction(path = posReviewPath, posOrNegWordCountDict = negFrequency,
 												priorProb = negProbability)
 	print(negPrediction)
 	prediction = predict.finalPrediction(posPrediction, negPrediction)
@@ -35,11 +35,11 @@ def testingPredictions():
 	print("")
 	print("Predicting if a negative review is positive or negative...")
 	print("positive prediction is")
-	posPrediction = predict.makeClassPrediction(path = negReviewPath, wordCountDict = posFrequency,
+	posPrediction = predict.makeClassPrediction(path = negReviewPath, posOrNegWordCountDict = posFrequency,
 												priorProb = posProbability)
 	print(posPrediction)
 	print("negative prediction is")
-	negPrediction = predict.makeClassPrediction(path = negReviewPath, wordCountDict = negFrequency,
+	negPrediction = predict.makeClassPrediction(path = negReviewPath, posOrNegWordCountDict = negFrequency,
 												priorProb = negProbability)
 	print(negPrediction)
 	prediction = predict.finalPrediction(posPrediction, negPrediction)
@@ -194,15 +194,26 @@ def savingAndLoadingTests():
 	cleanupFilesFromTests()
 
 
-def createTrainingdataAndTestdataFiles():
-	print("Creating preprocessed files...")
+def createTrainingdataFiles():
+	"""
+	This function will process trainingdata and save the processed data to a file by the name trainingdata.test
+	"""
+	print("Creating preprocessed trainingData...")
 	trainingdata = dataHandler.getInitializedTrainData()
 	fileHandler.save_object(trainingdata, "trainingdata.test")
 	print("Created trainingdata.test...")
+	print("Data has been processed and written to trainingdata.test.")
+
+
+def createTestdataFiles():
+	"""
+	This function will process the testdata and save the processed data to a file by the name testdata.test
+	"""
+	print("Creating preprocessed testData...")
 	testdata = dataHandler.getIntitializedTestData()
 	fileHandler.save_object(testdata, "testdata.test")
 	print("Created testdata.test...")
-	print("Data has been processed and written to files.")
+	print("Data has been processed and written to testdata.test.")
 
 
 def testPredictionWithLoadedFile():
@@ -220,10 +231,3 @@ def testPredictionWithLoadedFile():
 		print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
 	except FileNotFoundError as e:
 		print("Exception occoured, please create the test files first then run this again: ", e)
-
-
-
-
-if __name__ == '__main__':
-	# savingAndLoadingTests()
-	testPredictionWithLoadedFile()

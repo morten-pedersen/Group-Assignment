@@ -46,11 +46,18 @@ def getfilelist(pathname):
 	return directories
 
 
-def getwords(listWithPaths = None, path = None):  # TODO throw error if none of the arguments are None
+def getwordsfrominput(text):
+	finalListOfWords = []
+	removeCharacters(path = None, finalListOfWords = finalListOfWords, text = text)  # removing unwanted characters
+	return finalListOfWords
+
+
+def getwords(listWithPaths = None, path = None, text = None):  # TODO throw error if none of the arguments are None
 	"""
 	Function opens the files given in the list of paths finds the words and removes unwanted characters then returns a list of the words
 	Alternatively it opens the file given in the path and removes unwanted characters
 	One of the arguments MUST be None.
+	:param text: optional, this is the review
 	:param listWithPaths: optional, a list with the paths to the text files, if included, all the text files will be gone through
 	:param path: optional, a path to the file, if included, only the file given in the path will be gone through
 	:return: a list containing the words
@@ -65,16 +72,24 @@ def getwords(listWithPaths = None, path = None):  # TODO throw error if none of 
 	return finalListOfWords
 
 
-def removeCharacters(path, finalListOfWords):
+def removeCharacters(path, finalListOfWords, text = None):
 	"""
 	Function removes character from the file given in the path and appends the words to the list of words
 	:param path: the path to the file
 	:param finalListOfWords: the list containing the files
 	:return: Nothing
 	"""
-	with open(path, encoding = "utf8") as file:  # TODO try except pass??
-		text = file.read().lower()
-		file.close()
+	if text is None:  # Processing a txt file
+		with open(path, encoding = "utf8") as file:  # TODO try except pass??
+			text = file.read().lower()
+			file.close()
+			text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
+			text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
+			words = list(text.split())
+			for word in words:
+				if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
+					finalListOfWords.append(word)
+	else:  # processing input from user in cli
 		text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
 		text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
 		words = list(text.split())

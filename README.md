@@ -9,7 +9,4 @@ Group-Assignment\Data\train\pos
 
 Where Group-Assignment is the directory that the python source files are located.
 
-To test, just run testing.py
-
-
-We know that the way we calculate the probability currently is incorrect. Any advice is welcomed. 
+To test, just run main.py and use the commands.
