@@ -50,14 +50,11 @@ def command(command):
 		print(result)
 
 
-	# TODO actually run the tests
-	# TODO make it possible to predict user input
 	elif command == "help":
 		print(help)
+
 	elif command == "clear":
 		clearWindow()
-
-
 
 	else:  # if a command that doesnt exist is typed in.
 		print(help)
