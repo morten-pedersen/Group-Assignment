@@ -10,11 +10,11 @@ def command(command):
 	:param command: a string with your command
 	"""
 	help = """				Available commands are:
-		|	predict			- Attempts to predict whether or not a review is positive or negative. You enter your own review.
-		|   runtest			- allow you to choose a test to run
-		|   exit			- exits the program
-		|	clear			- clears the window
-		|   help			- shows the different commands available
+		predict			- Attempts to predict whether or not a review is positive or negative. You enter the review. 
+		runtest			- allow you to choose a test to run
+		exit			- exits the program
+		clear			- clears the window
+		help			- shows the different commands available
 		"""
 	# TODO fix text formatting, maybe use spaces instead of tabs? looks wierd in cmd
 	if command == "exit" or command == "close" or command == "stop":
@@ -46,6 +46,8 @@ def command(command):
 			print("Couldn't run ", testToRun, " Maybe you spelled it wrong?")
 	elif command == "predict":
 		userReview = input("Enter your review: ")
+		print("Attempting to predict, this may take a while.")
+		print("Your input was: " + userReview + "\n")
 		result = predictor.predictInput(userReview)
 		print(result)
 
