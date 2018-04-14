@@ -2,6 +2,8 @@ import os
 import pickle
 import re
 
+from stop_words import get_stop_words
+
 
 def save_object(obj, filename):
 	"""
@@ -103,20 +105,32 @@ def removeCharacters(path, finalListOfWords, text = None):
 				finalListOfWords.append(word)
 
 
-def makeWordFrequencyDict(listOfWords):
+def makeWordFrequencyDict(listOfWords, useStopWords = False):
 	"""
 	Find the frequency of the words in the list given in the parameter, adding them to a dictionary as keys with their
 	frequency as value
+	:param useStopWords: False by default, if True, words found to be a stopword will not be counted
 	:param listOfWords: the list of files
 	:return: a dictionary with words as keys and frequency as values
 	"""
 	dictionary = {}
-	for word in listOfWords:  # add the words to a dictionary as keys and their frequency as value.
-		if word in dictionary:
-			dictionary[word] += 1
-		else:
-			dictionary[word] = 1
-	return dictionary
+	if useStopWords:  # if true, using stopwords
+		stop_words = get_stop_words('english')
+		for word in listOfWords:  # add the words to a dictionary as keys and their frequency as value.
+			if word in dictionary and word not in stop_words:
+				dictionary[word] += 1
+			elif word not in dictionary and word not in stop_words:
+				dictionary[word] = 1
+			else:
+				pass
+		return dictionary
+	else:  # Not using stopwords
+		for word in listOfWords:  # add the words to a dictionary as keys and their frequency as value.
+			if word in dictionary:
+				dictionary[word] += 1
+			else:
+				dictionary[word] = 1
+		return dictionary
 
 
 def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testing to see what the most common words are

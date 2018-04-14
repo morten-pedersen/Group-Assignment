@@ -1,5 +1,7 @@
 import os
 
+from stop_words import get_stop_words
+
 import predictor
 import testing
 
@@ -10,55 +12,84 @@ def command(command):
 	:param command: a string with your command
 	"""
 	help = """				Available commands are:
-		predict			- Attempts to predict whether or not a review is positive or negative. You enter the review. 
+		predict			- Attempts to predict a review by the user 
 		runtest			- allow you to choose a test to run
 		exit			- exits the program
 		clear			- clears the window
 		help			- shows the different commands available
+		stopwords		- learn more about stopwords
 		"""
-	# TODO fix text formatting, maybe use spaces instead of tabs? looks wierd in cmd
+
+	stopwordsinfo = "Stop words are words that doesn't have any negative or positive meaning.\n" \
+					"It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n" \
+					"It can help performance and has an impact on the result."
+
+	stopwordcommands = """				Available commands are:
+		help			- lists the commands
+		commands		- lists the commands
+		info			- lists info about stopwords
+		back			- go back to prevous section
+		clear			- clear the window
+		liststopwords	- lists the stopwords
+		"""
+	# TODO add more commands
 	if command == "exit" or command == "close" or command == "stop":
 		quit()
 	elif command == "runtest":
-		testToRun = input("Which function do you want to run? This is not case sensitive.\n"
-						  "preProcessTrainingdata\n"
-						  "preProcessTestData\n"
-						  "testPredictionWithLoadedFile\n"
-						  "savingAndLoadingTests\n"
-						  "cleanupFilesFromTests\n"
-						  "predictionTests\n"
-						  "testingPredictions\n"
-						  "testingTestDataProcessing\n"
-						  "testPredicTestReviews")
-		testToRun = testToRun.lower()
-		print("Attempting to run ", testToRun)
-		if testToRun == "preProcessTrainingdata".lower():
-			testing.createTrainingdataFiles()
-		elif testToRun == "preProcessTestData".lower():
-			testing.createTestdataFiles()
+		done = False
+		clearWindow()
+		while not done:
+			testToRun = input("Which function do you want to run? This is not case sensitive. Type back to return\n"
+							  "preProcessTrainingdata\n"
+							  "preProcessTestData\n"
+							  "testPredictionWithLoadedFile\n"
+							  "savingAndLoadingTests\n"
+							  "cleanupFilesFromTests\n"
+							  "predictionTests\n"
+							  "testingPredictions\n"
+							  "testingTestDataProcessing\n"
+							  "testPredicTestReviews\n"
+							  "testStopWords\n"
+							  "bigStopWordTest\n")
+			testToRun = testToRun.lower()
 
-		elif testToRun == "testPredictionWithLoadedFile".lower():
-			testing.testPredictionWithLoadedFile()
+			print("Attempting to run ", testToRun)
+			if testToRun == "preProcessTrainingdata".lower():
+				testing.createTrainingdataFiles()
 
-		elif testToRun == "savingAndLoadingTests".lower():
-			testing.savingAndLoadingTests()
+			elif testToRun == "back":
+				done = True
+				print("Returning to previous section...")
 
-		elif testToRun == "predictionTests".lower():
-			testing.predictionTests()
+			elif testToRun == "preProcessTestData".lower():
+				testing.createTestdataFiles()
 
-		elif testToRun =="testingPredictions".lower():
-			testing.testingTwoPredictions()
+			elif testToRun == "testPredictionWithLoadedFile".lower():
+				testing.testPredictionWithLoadedFile()
 
-		elif testToRun =="testingTestDataProcessing".lower():
-			testing.testingTestDataProcessing()
+			elif testToRun == "savingAndLoadingTests".lower():
+				testing.savingAndLoadingTests()
 
-		elif testToRun=="testPredicTestReviews".lower():
-			testing.testPredicTestReviews()
+			elif testToRun == "predictionTests".lower():
+				testing.predictionTests()
 
+			elif testToRun == "testingPredictions".lower():
+				testing.testingTwoPredictions()
 
+			elif testToRun == "testingTestDataProcessing".lower():
+				testing.testingTestDataProcessing()
 
-		else:
-			print("Couldn't run ", testToRun, " Maybe you spelled it wrong?")
+			elif testToRun == "testPredicTestReviews".lower():
+				testing.testPredicTestReviews()
+
+			elif testToRun == "testStopWords".lower():
+				testing.testStopWords()
+
+			elif testToRun == "bigStopWordTest".lower():
+				testing.bigStopWordTest()
+
+			else:
+				print("Couldn't run ", testToRun, " Maybe you spelled it wrong?\n")
 	elif command == "predict":
 		userReview = input("Enter your review: ")
 		print("Attempting to predict, this may take a while.")
@@ -69,6 +100,33 @@ def command(command):
 
 	elif command == "help":
 		print(help)
+
+	elif command == "stopwords":
+		done = False
+		print(stopwordcommands)
+		while not done:
+			userInput = input("Type a command. Type help for a list of options: ")
+
+			if userInput.lower() == "info":
+				print(stopwordsinfo)
+
+			elif userInput == "back":
+				print("Going back...")
+				done = True
+
+			elif userInput == "help" or userInput == "commands":
+				print(stopwordcommands)
+
+			elif userInput == "clear":
+				clearWindow()
+
+			elif userInput == "liststopwords":
+				stop_words = get_stop_words('english')
+				for word in stop_words:
+					print(word)
+			else:
+				print("Did not recognize that command, type help to show a list of commands")
+
 
 	elif command == "clear":
 		clearWindow()

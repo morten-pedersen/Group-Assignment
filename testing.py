@@ -6,17 +6,20 @@ import fileHandler
 import predictor as predict
 
 
-def testingTwoPredictions():
+def testingTwoPredictions(useStopWords = False):
 	"""
 	This test tests what the predictions are for a positive and negative test review
 	"""
 	startTime = time.time()
-	print("Running testingTwoPredictions...")
+	if useStopWords:
+		print("Running testingTwoPredictions. WITH STOPWORDS")
+	else:
+		print("Running testingTwoPredictions...")
 	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
 	os.chdir(dir_path)
 	posReviewPath = os.getcwd() + "\\Data\\test\\pos\\1_10.txt"  # positive review
 	negReviewPath = os.getcwd() + "\\Data\\test\\neg\\0_2.txt"  # negative review
-	trainingData = dataHandler.getInitializedTrainData()
+	trainingData = dataHandler.getInitializedTrainData(useStopWords)
 	posFrequency = trainingData["posFreq"]
 	negFrequency = trainingData["negFreq"]
 	posProbability = trainingData["posProb"]
@@ -194,12 +197,15 @@ def savingAndLoadingTests():
 	cleanupFilesFromTests()
 
 
-def createTrainingdataFiles():
+def createTrainingdataFiles(useStopWords = False):
 	"""
 	This function will process trainingdata and save the processed data to a file by the name trainingdata.test
 	"""
-	print("Creating preprocessed trainingData...")
-	trainingdata = dataHandler.getInitializedTrainData()
+	print("Creating preprocessed trainingData. Using stopwords? ", useStopWords)
+	if useStopWords:
+		trainingdata = dataHandler.getInitializedTrainData(useStopWords)
+	else:
+		trainingdata = dataHandler.getInitializedTrainData()
 	fileHandler.save_object(trainingdata, "trainingdata.test")
 	print("Created trainingdata.test...")
 	print("Data has been processed and written to trainingdata.test.")
@@ -236,3 +242,39 @@ def testPredictionWithLoadedFile():
 		print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
 	except FileNotFoundError as e:
 		print("Exception occoured, please create the test files first then run this again: ", e)
+
+
+def testStopWords():
+	"""
+	First run regular prediction on test set, then do one using stopwords
+	"""
+	startTime = time.time()
+	testingTwoPredictions()  # WITHOUT STOPWORDS
+	testingTwoPredictions(useStopWords = True)
+	endTime = time.time()
+	print("Both tests are complete.")
+	print("Tests took: " + str(round(endTime - startTime, 2)) + " sec in total")
+
+
+def bigStopWordTest():
+	"""
+	This test will first process the training and test data, then try to do predictions.
+	The training set will be using stopwords
+	"""
+	startTime = time.time()
+	try:
+		trainingdata = fileHandler.load_object("trainingdata.test")
+		testdata = fileHandler.load_object("testdata.test")
+		results = predict.predictTestReviews(trainingdata, testdata)
+		print(results)
+		numberOfReviews = 25000
+		print(str((results["correctPredictions"] - numberOfReviews)/numberOfReviews*(100)*-1) + "% is the error rate ")
+		endTime = time.time()
+		print("Test is complete.")
+		print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
+	except FileNotFoundError as e:
+		print("Exception occoured: ", e)
+		print("Attempting to process data and then trying again.")
+		createTrainingdataFiles(useStopWords = True)
+		createTestdataFiles()
+		bigStopWordTest()

@@ -12,3 +12,6 @@ Where Group-Assignment is the directory that the python source files are located
 To test, just run main.py and use the commands.
 
 Alternatively you can edit testing.py and run the tests from that file.
+
+Required packeges:
+pip install stop-words

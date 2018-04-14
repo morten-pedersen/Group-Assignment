@@ -3,7 +3,7 @@ import os
 import fileHandler as fh
 
 
-def getInitializedTrainData():
+def getInitializedTrainData(useStopWords = False):
 	"""
 	This function will go through the training set and return the positive and negative wordfrequency as well as the their probability.
 	:return: A dictionary with the following keys as strings:
@@ -20,10 +20,9 @@ def getInitializedTrainData():
 	negTrainFiles = fh.getfilelist(negTrainPath)  # list of files
 	posWords = fh.getwords(posTrainFiles)  # list of words
 	negWords = fh.getwords(negTrainFiles)  # list of words
-	posFrequency = fh.makeWordFrequencyDict(
-		posWords)  # dictionary with frequency of words found in positive reviews
-	negFrequency = fh.makeWordFrequencyDict(
-		negWords)  # dictionary with frequency of words found in negative reviews
+	posFrequency = fh.makeWordFrequencyDict(posWords, useStopWords)
+	negFrequency = fh.makeWordFrequencyDict(negWords, useStopWords)
+	# dictionaries with frequency of words found in negative reviews, use stopwords if true
 	posProbability = posTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # baseline prob
 	negProbability = negTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # .50ish?
 	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
@@ -33,7 +32,7 @@ def getInitializedTrainData():
 	return initializedTrainingData
 
 
-def getIntitializedTestData():
+def getIntitializedTestData(useStopWords = False):
 	"""
 	Test data is gathered, processed and put in dictionaries
 	:return: dict with positive and negative reviews
