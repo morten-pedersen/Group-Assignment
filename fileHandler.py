@@ -47,6 +47,11 @@ def getfilelist(pathname):
 
 
 def getwordsfrominput(text):
+	"""
+	Takes a string of user input and retrieves the words from it without any symbols
+	:param text: the user input
+	:return: list of words
+	"""
 	finalListOfWords = []
 	removeCharacters(path = None, finalListOfWords = finalListOfWords, text = text)  # removing unwanted characters
 	return finalListOfWords

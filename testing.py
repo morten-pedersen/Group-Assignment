@@ -6,12 +6,12 @@ import fileHandler
 import predictor as predict
 
 
-def testingPredictions():
+def testingTwoPredictions():
 	"""
 	This test tests what the predictions are for a positive and negative test review
 	"""
 	startTime = time.time()
-	print("Running testingPredictions...")
+	print("Running testingTwoPredictions...")
 	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
 	os.chdir(dir_path)
 	posReviewPath = os.getcwd() + "\\Data\\test\\pos\\1_10.txt"  # positive review
@@ -133,7 +133,7 @@ def predictionTests():
 	print()
 	testingTestDataProcessing()  # running test
 	print()
-	testingPredictions()  # running test
+	testingTwoPredictions()  # running test
 	print()
 
 
@@ -217,6 +217,11 @@ def createTestdataFiles():
 
 
 def testPredictionWithLoadedFile():
+	"""
+	This test will attempt to predict the testdata, using the preprocessed data
+	Throws FileNotFoundError if the preprocessed data cant be found
+	:return:
+	"""
 	print("Running testPredictionWithLoadedFile...")
 	startTime = time.time()
 	try:
