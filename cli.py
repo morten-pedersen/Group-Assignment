@@ -26,7 +26,10 @@ def command(command):
 						  "testPredictionWithLoadedFile\n"
 						  "savingAndLoadingTests\n"
 						  "cleanupFilesFromTests\n"
-						  "predictionTests\n")
+						  "predictionTests\n"
+						  "testingPredictions\n"
+						  "testingTestDataProcessing\n"
+						  "testPredicTestReviews")
 		testToRun = testToRun.lower()
 		print("Attempting to run ", testToRun)
 		if testToRun == "preProcessTrainingdata".lower():
@@ -35,13 +38,25 @@ def command(command):
 			testing.createTestdataFiles()
 
 		elif testToRun == "testPredictionWithLoadedFile".lower():
-			testing.testPredictionWithLoadedFile
+			testing.testPredictionWithLoadedFile()
 
 		elif testToRun == "savingAndLoadingTests".lower():
-			testing.savingAndLoad
+			testing.savingAndLoadingTests()
 
 		elif testToRun == "predictionTests".lower():
 			testing.predictionTests()
+
+		elif testToRun =="testingPredictions".lower():
+			testing.testingTwoPredictions()
+
+		elif testToRun =="testingTestDataProcessing".lower():
+			testing.testingTestDataProcessing()
+
+		elif testToRun=="testPredicTestReviews".lower():
+			testing.testPredicTestReviews()
+
+
+
 		else:
 			print("Couldn't run ", testToRun, " Maybe you spelled it wrong?")
 	elif command == "predict":
