@@ -67,13 +67,13 @@ def testingTestDataProcessing():
 	print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
 
 
-def testPredicTestReviews():
+def testPredictTestReviews():
 	"""
 	This test will try to predict all the test reviews.
 	Accuracy of the test and duration of test is printed.
 	"""
 	startTime = time.time()
-	print("Running testPredicTestReviews...")
+	print("Running testPredictTestReviews...")
 	results = predict.predictTestReviews()
 	print(results)
 	numberOfReviews = 25000
@@ -132,7 +132,7 @@ def predictionTests():
 	"""
 	The function for testing preditctions, it executes the following tests.
 	"""
-	testPredicTestReviews()  # running test
+	testPredictTestReviews()  # running test
 	print()
 	testingTestDataProcessing()  # running test
 	print()

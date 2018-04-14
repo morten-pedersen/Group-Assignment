@@ -48,7 +48,7 @@ def command(command):
 							  "predictionTests\n"
 							  "testingPredictions\n"
 							  "testingTestDataProcessing\n"
-							  "testPredicTestReviews\n"
+							  "testPredictTestReviews\n"
 							  "testStopWords\n"
 							  "bigStopWordTest\n")
 			testToRun = testToRun.lower()
@@ -79,8 +79,8 @@ def command(command):
 			elif testToRun == "testingTestDataProcessing".lower():
 				testing.testingTestDataProcessing()
 
-			elif testToRun == "testPredicTestReviews".lower():
-				testing.testPredicTestReviews()
+			elif testToRun == "testPredictTestReviews".lower():
+				testing.testPredictTestReviews()
 
 			elif testToRun == "testStopWords".lower():
 				testing.testStopWords()

@@ -5,7 +5,7 @@ import fileHandler as fh
 from dataHandler import getInitializedTrainData, getIntitializedTestData
 
 
-def predictTestReviews(trainingData, testData):
+def predictTestReviews(trainingData = None, testData = None):
 	"""
 	This function will go through all set of test reviews and attempt to predict if it is positive or negative and save the results
 	:param trainingData: dict that looks like this {"posFreq":posFrequency, "negFreq":negFrequency,
