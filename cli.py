@@ -44,7 +44,7 @@ def command(command):
 							  "preProcessTestData\n"
 							  "testPredictionWithLoadedFile\n"
 							  "savingAndLoadingTests\n"
-							  "cleanupFilesFromTests\n"
+							  "cleanup   -    this will remove all .test files\n"
 							  "predictionTests\n"
 							  "testingPredictions\n"
 							  "testingTestDataProcessing\n"
@@ -52,7 +52,7 @@ def command(command):
 							  "testStopWords\n"
 							  "bigStopWordTest\n")
 			testToRun = testToRun.lower()
-
+			# TODO add descriptions to tests and clean up
 			print("Attempting to run ", testToRun)
 			if testToRun == "preProcessTrainingdata".lower():
 				testing.createTrainingdataFiles()
@@ -69,6 +69,9 @@ def command(command):
 
 			elif testToRun == "savingAndLoadingTests".lower():
 				testing.savingAndLoadingTests()
+
+			elif testToRun == "cleanup".lower():
+				testing.cleanupFilesFromTests()
 
 			elif testToRun == "predictionTests".lower():
 				testing.predictionTests()
