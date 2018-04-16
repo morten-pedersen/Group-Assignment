@@ -137,26 +137,26 @@ def cleanupFilesFromTests():
 	os.chdir(dir_path)  # TODO try except stuff here and test it
 	try:
 		os.remove(os.getcwd() + "\\testString.test")
+		print("testString.test was removed.")
 	except Exception as e:
-		print("Exception occoured: ", e)
 		pass
 
 	try:
 		os.remove(os.getcwd() + "\\testdata.test")
+		print("testdata.test was removed.")
 	except Exception as e:
-		print("Exception occoured: ", e)
 		pass
 
 	try:
 		os.remove(os.getcwd() + "\\trainingdata.test")
+		print("trainingdata.test was removed.")
 	except Exception as e:
-		print("Exception occoured: ", e)
 		pass
 
 	try:
 		os.remove(os.getcwd() + "\\testTrainingData.test")
+		print("testTrainingData.test was removed.")
 	except Exception as e:
-		print("Exception occoured: ", e)
 		pass
 
 	print("Test files has been removed.")
