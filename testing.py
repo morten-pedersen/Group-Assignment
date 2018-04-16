@@ -77,7 +77,8 @@ def testPredictTestReviews():
 	results = predict.predictTestReviews()
 	print(results)
 	numberOfReviews = 25000
-	print(str((results["correctPredictions"] - numberOfReviews)/numberOfReviews*(100)*-1) + "% is the error rate ")
+	print(
+		str((results["correctPredictions"] - numberOfReviews) / numberOfReviews * (100) * -1) + "% is the error rate ")
 	endTime = time.time()
 	print("Test is complete.")
 	print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
@@ -126,18 +127,6 @@ def testLoadTrainingDataFromfile():
 		print("A dictionary was loaded as expected.")
 	else:
 		print("Something went wrong, the file has the wrong type, expected a dict but got: ", type(trainingData))
-
-
-def predictionTests():
-	"""
-	The function for testing preditctions, it executes the following tests.
-	"""
-	testPredictTestReviews()  # running test
-	print()
-	testingTestDataProcessing()  # running test
-	print()
-	testingTwoPredictions()  # running test
-	print()
 
 
 def cleanupFilesFromTests():
@@ -236,7 +225,8 @@ def testPredictionWithLoadedFile():
 		results = predict.predictTestReviews(trainingdata, testdata)
 		print(results)
 		numberOfReviews = 25000
-		print(str((results["correctPredictions"] - numberOfReviews)/numberOfReviews*(100)*-1) + "% is the error rate ")
+		print(str(
+			(results["correctPredictions"] - numberOfReviews) / numberOfReviews * (100) * -1) + "% is the error rate ")
 		endTime = time.time()
 		print("Test is complete.")
 		print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
@@ -268,7 +258,8 @@ def bigStopWordTest():
 		results = predict.predictTestReviews(trainingdata, testdata)
 		print(results)
 		numberOfReviews = 25000
-		print(str((results["correctPredictions"] - numberOfReviews)/numberOfReviews*(100)*-1) + "% is the error rate ")
+		print(str(
+			(results["correctPredictions"] - numberOfReviews) / numberOfReviews * (100) * -1) + "% is the error rate ")
 		endTime = time.time()
 		print("Test is complete.")
 		print("Test took: " + str(round(endTime - startTime, 2)) + " sec")
