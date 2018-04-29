@@ -2,6 +2,8 @@ import os
 
 from stop_words import get_stop_words
 
+import dataHandler
+import fileHandler
 import predictor
 import testing
 
@@ -17,6 +19,7 @@ def command(command):
 		exit			- exits the program
 		clear			- clears the window
 		help			- shows the different commands available
+		wordcount               - Will show how many times a word shows up in the trainingdata, type in the word in the next input
 		stopwords		- learn more about stopwords
 		"""
 
@@ -25,16 +28,27 @@ def command(command):
 					"It can help performance and has an impact on the result."
 
 	stopwordcommands = """				Available commands are:
-		help			- lists the commands
-		commands		- lists the commands
-		info			- lists info about stopwords
-		back			- go back to prevous section
-		clear			- clear the window
-		liststopwords	- lists the stopwords
+		help / commands - lists the commands
+		info            - lists info about stopwords
+		back            - go back to prevous section
+		clear           - clear the window
+		listwords       - lists the stopwords
 		"""
 	# TODO add more commands
 	if command == "exit" or command == "close" or command == "stop":
 		quit()
+
+	elif command == "wordcount":
+		word = input("Type in the word: ")
+		data = dataHandler.getInitializedTrainData()
+		posFr = data["posFreq"]
+		negFr = data["negFreq"]
+		print(word, " was found ", fileHandler.getSpecificWord(posFr, word), " times in the positive reviews\n")
+		print(word, " was found ", fileHandler.getSpecificWord(negFr, word), " times in the negative reviews\n")
+
+
+
+
 	elif command == "runtest":
 		done = False
 		clearWindow()
@@ -118,7 +132,7 @@ def command(command):
 			elif userInput == "clear":
 				clearWindow()
 
-			elif userInput == "liststopwords":
+			elif userInput == "listwords":
 				stop_words = get_stop_words('english')
 				for word in stop_words:
 					print(word)

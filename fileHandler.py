@@ -133,6 +133,16 @@ def makeWordFrequencyDict(listOfWords, useStopWords = False):
 		return dictionary
 
 
+def getSpecificWord(wordcountdict, word):
+	"""
+	This function will return the value of a word in a dictionary. The value is the number of times it appears in the reviews
+	:param wordcountdict: the dictionary will the words and their frequency
+	:param word: the word you are looking for
+	:return: an integer with the number of times the word appears in the reviews
+	"""
+	return wordcountdict[word]
+
+
 def getCommonWords(dictionary, wordsToReturn = None):  # Maybe useful for testing to see what the most common words are
 	"""
 	The function finds the most common words in the given dictionary and returns a list of the most common ones in desc order.
