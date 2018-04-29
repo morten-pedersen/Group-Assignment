@@ -39,53 +39,52 @@ def command(command):
 		done = False
 		clearWindow()
 		while not done:
-			testToRun = input("Which function do you want to run? This is not case sensitive. Type back to return\n"
-							  "preProcessTrainingdata		- This will prerocess the training data and save it as a .test file\n"
-							  "preProcessTestData			- This will preprocess the test data and save it as a .test file\n"
-							  "testPredictionWithLoadedFile	- This will attempt to do the predictions on the testdata using the .test files\n"
-							  "savingAndLoadingTests		- This test will attempt to save data to a .test file, then load it\n"
-							  "cleanup   					- This will remove all .test files\n"
-							  "testingPredictions			- This will attempt to predict one positive and one negative review\n"
-							  "testingTestDataProcessing	- This will test if the testdata can be processed\n"
-							  "testPredictTestReviews		- This will attempt to predict all the test reviews, not using preprocessed data\n"
-							  "testStopWords				- This test will predict one positive and one negative review while using stopwords\n"
-							  "bigStopWordTest				- This test will attempt to predict all the testreviews while using stopwords\n")
+			testToRun = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
+							  "1  - preProcessTrainingdata      - This will prerocess the training data and save it as a .test file\n"
+							  "2  - preProcessTestData          - This will preprocess the test data and save it as a .test file\n"
+							  "3  - testPredictionWithLoadedFile- This will attempt to do the predictions on the testdata using the .test files\n"
+							  "4  - savingAndLoadingTests       - This test will attempt to save data to a .test file, then load it\n"
+							  "5  - cleanup                     - This will remove all .test files\n"
+							  "6  - testingPredictions          - This will attempt to predict one positive and one negative review\n"
+							  "7  - testingTestDataProcessing   - This will test if the testdata can be processed\n"
+							  "8  - testPredictTestReviews      - This will attempt to predict all the test reviews, not using preprocessed data\n"
+							  "9  - testStopWords               - This test will predict one positive and one negative review while using stopwords\n"
+							  "10 - bigStopWordTest             - This test will attempt to predict all the testreviews while using stopwords\n")
 			testToRun = testToRun.lower()
-			# TODO add descriptions to tests and clean up
 			print("Attempting to run ", testToRun)
-			if testToRun == "preProcessTrainingdata".lower():
+			if testToRun == "1":
 				testing.createTrainingdataFiles()
+
+			elif testToRun == "2":
+				testing.createTestdataFiles()
+
+			elif testToRun == "3":
+				testing.testPredictionWithLoadedFile()
+
+			elif testToRun == "4":
+				testing.savingAndLoadingTests()
+
+			elif testToRun == "5":
+				testing.cleanupFilesFromTests()
+
+			elif testToRun == "6":
+				testing.testingTwoPredictions()
+
+			elif testToRun == "7":
+				testing.testingTestDataProcessing()
+
+			elif testToRun == "8":
+				testing.testPredictTestReviews()
+
+			elif testToRun == "9":
+				testing.testStopWords()
+
+			elif testToRun == "10":
+				testing.bigStopWordTest()
 
 			elif testToRun == "back":
 				done = True
 				print("Returning to previous section...")
-
-			elif testToRun == "preProcessTestData".lower():
-				testing.createTestdataFiles()
-
-			elif testToRun == "testPredictionWithLoadedFile".lower():
-				testing.testPredictionWithLoadedFile()
-
-			elif testToRun == "savingAndLoadingTests".lower():
-				testing.savingAndLoadingTests()
-
-			elif testToRun == "cleanup".lower():
-				testing.cleanupFilesFromTests()
-
-			elif testToRun == "testingPredictions".lower():
-				testing.testingTwoPredictions()
-
-			elif testToRun == "testingTestDataProcessing".lower():
-				testing.testingTestDataProcessing()
-
-			elif testToRun == "testPredictTestReviews".lower():
-				testing.testPredictTestReviews()
-
-			elif testToRun == "testStopWords".lower():
-				testing.testStopWords()
-
-			elif testToRun == "bigStopWordTest".lower():
-				testing.bigStopWordTest()
 
 			else:
 				print("Couldn't run ", testToRun, " Maybe you spelled it wrong?\n")
@@ -140,6 +139,6 @@ def clearWindow():
 	Doing both cause pycharm
 	:return:
 	"""
-	cls = lambda: print('\n' * 100)
+	cls = lambda:print('\n'*100)
 	cls()
 	os.system('cls' if os.name == 'nt' else 'clear')
