@@ -42,8 +42,8 @@ def command(command):
 	elif command == "wordcount":
 		word = input("Type in the word: ")
 		data = data_handler.get_initialized_train_data()
-		pos_fr = data["posFreq"]
-		neg_fr = data["negFreq"]
+		pos_fr = data["pos_freq"]
+		neg_fr = data["neg_freq"]
 		print(word, " was found ", file_handler.get_specific_word(pos_fr, word), " times in the positive reviews\n")
 		print(word, " was found ", file_handler.get_specific_word(neg_fr, word), " times in the negative reviews\n")
 
