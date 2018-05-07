@@ -5,6 +5,7 @@ Upon starting the program you are expected to provide the path to the dataset. F
 C:\Users\user\Documents\GitHub\Group-Assignment\Data
 
 It is assumed in the code that the paths to the test and training data is as follows:
+
 \Data\test\neg
 
 \Data\train\pos
