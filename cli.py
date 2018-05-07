@@ -1,7 +1,7 @@
 import os
 
 from stop_words import get_stop_words
-
+import main
 import dataHandler
 import fileHandler
 import predictor
@@ -21,11 +21,12 @@ def command(command):
 		help			- shows the different commands available
 		wordcount               - Will show how many times a word shows up in the trainingdata, type in the word in the next input
 		stopwords		- learn more about stopwords
+		setpath         - allows you to set the path to the directory that contains the data
 		"""
 
-	stopwordsinfo = "Stop words are words that doesn't have any negative or positive meaning.\n" \
-					"It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n" \
-					"It can help performance and has an impact on the result."
+	stopwordsinfo = "Stop words are words that doesn't have any negative or positive meaning.\n"\
+	                "It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n"\
+	                "It can help performance and has an impact on the result."
 
 	stopwordcommands = """				Available commands are:
 		help / commands - lists the commands
@@ -47,23 +48,25 @@ def command(command):
 		print(word, " was found ", fileHandler.getSpecificWord(negFr, word), " times in the negative reviews\n")
 
 
-
+	elif command == "setpath":
+		main.setPath()
 
 	elif command == "runtest":
 		done = False
 		clearWindow()
 		while not done:
 			testToRun = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
-							  "1  - preProcessTrainingdata      - This will prerocess the training data and save it as a .test file\n"
-							  "2  - preProcessTestData          - This will preprocess the test data and save it as a .test file\n"
-							  "3  - testPredictionWithLoadedFile- This will attempt to do the predictions on the testdata using the .test files\n"
-							  "4  - savingAndLoadingTests       - This test will attempt to save data to a .test file, then load it\n"
-							  "5  - cleanup                     - This will remove all .test files\n"
-							  "6  - testingPredictions          - This will attempt to predict one positive and one negative review\n"
-							  "7  - testingTestDataProcessing   - This will test if the testdata can be processed\n"
-							  "8  - testPredictTestReviews      - This will attempt to predict all the test reviews, not using preprocessed data\n"
-							  "9  - testStopWords               - This test will predict one positive and one negative review while using stopwords\n"
-							  "10 - bigStopWordTest             - This test will attempt to predict all the testreviews while using stopwords\n")
+			                  "1  - preProcessTrainingdata      - This will prerocess the training data and save it as a .test file\n"
+			                  "2  - preProcessTestData          - This will preprocess the test data and save it as a .test file\n"
+			                  "3  - testPredictionWithLoadedFile- This will attempt to do the predictions on the testdata using the .test files\n"
+			                  "4  - savingAndLoadingTests       - This test will attempt to save data to a .test file, then load it\n"
+			                  "5  - cleanup                     - This will remove all .test files\n"
+			                  "6  - testingPredictions          - This will attempt to predict one positive and one negative review\n"
+			                  "7  - testingTestDataProcessing   - This will test if the testdata can be processed\n"
+			                  "8  - testPredictTestReviews      - This will attempt to predict all the test reviews, not using preprocessed data\n"
+			                  "9  - testStopWords               - This test will predict one positive and one negative review while using stopwords\n"
+			                  "10 - bigStopWordTest             - This test will attempt to predict all the testreviews while using stopwords\n"
+			                  "11 - all                         - This will run all the tests.\n")
 			testToRun = testToRun.lower()
 			print("Attempting to run ", testToRun)
 			if testToRun == "1":
@@ -94,6 +97,18 @@ def command(command):
 				testing.testStopWords()
 
 			elif testToRun == "10":
+				testing.bigStopWordTest()
+
+			elif testToRun == "11":
+				testing.createTrainingdataFiles()
+				testing.createTestdataFiles()
+				testing.testPredictionWithLoadedFile()
+				testing.savingAndLoadingTests()
+				testing.cleanupFilesFromTests()
+				testing.testingTwoPredictions()
+				testing.testingTestDataProcessing()
+				testing.testPredictTestReviews()
+				testing.testStopWords()
 				testing.bigStopWordTest()
 
 			elif testToRun == "back":
@@ -153,6 +168,6 @@ def clearWindow():
 	Doing both cause pycharm
 	:return:
 	"""
-	cls = lambda:print('\n'*100)
+	cls = lambda:print('\n' * 100)
 	cls()
 	os.system('cls' if os.name == 'nt' else 'clear')

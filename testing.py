@@ -1,9 +1,11 @@
 import os
 import time
-
+import main
 import dataHandler
 import fileHandler
 import predictor as predict
+
+path = main.get_path()
 
 
 def testingTwoPredictions(useStopWords = False):
@@ -15,10 +17,9 @@ def testingTwoPredictions(useStopWords = False):
 		print("Running testingTwoPredictions. WITH STOPWORDS")
 	else:
 		print("Running testingTwoPredictions...")
-	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
-	os.chdir(dir_path)
-	posReviewPath = os.getcwd() + "\\Data\\test\\pos\\1_10.txt"  # positive review
-	negReviewPath = os.getcwd() + "\\Data\\test\\neg\\0_2.txt"  # negative review
+
+	posReviewPath = path + "\\test\\pos\\1_10.txt"  # positive review
+	negReviewPath = path + "\\test\\neg\\0_2.txt"  # negative review
 	trainingData = dataHandler.getInitializedTrainData(useStopWords)
 	posFrequency = trainingData["posFreq"]
 	negFrequency = trainingData["negFreq"]
@@ -27,11 +28,11 @@ def testingTwoPredictions(useStopWords = False):
 	print("Predicting if a positive review is positive or negative...")
 	print("positive prediction is")
 	posPrediction = predict.makeClassPrediction(path = posReviewPath, posOrNegWordCountDict = posFrequency,
-												priorProb = posProbability)
+	                                            priorProb = posProbability)
 	print(posPrediction)
 	print("negative prediction is")
 	negPrediction = predict.makeClassPrediction(path = posReviewPath, posOrNegWordCountDict = negFrequency,
-												priorProb = negProbability)
+	                                            priorProb = negProbability)
 	print(negPrediction)
 	prediction = predict.finalPrediction(posPrediction, negPrediction)
 	print("It is a " + prediction + " review")
@@ -39,11 +40,11 @@ def testingTwoPredictions(useStopWords = False):
 	print("Predicting if a negative review is positive or negative...")
 	print("positive prediction is")
 	posPrediction = predict.makeClassPrediction(path = negReviewPath, posOrNegWordCountDict = posFrequency,
-												priorProb = posProbability)
+	                                            priorProb = posProbability)
 	print(posPrediction)
 	print("negative prediction is")
 	negPrediction = predict.makeClassPrediction(path = negReviewPath, posOrNegWordCountDict = negFrequency,
-												priorProb = negProbability)
+	                                            priorProb = negProbability)
 	print(negPrediction)
 	prediction = predict.finalPrediction(posPrediction, negPrediction)
 	print("It is a " + prediction + " review")
@@ -58,7 +59,7 @@ def testingTestDataProcessing():
 	"""
 	startTime = time.time()
 	print("Running testingTestDataProcessing...")  # running the test
-	if dataHandler.getIntitializedTestData() is not None:
+	if dataHandler.getIntitializedTestData() is dict:
 		print("Data was processed")
 	else:
 		print("Something went wrong")
@@ -123,7 +124,7 @@ def testLoadTrainingDataFromfile():
 	"""
 	print("Attempting to load training data from file...")
 	trainingData = fileHandler.load_object("testTrainingData.test")
-	if type(trainingData) is dict:
+	if type(trainingData) is not None:
 		print("A dictionary was loaded as expected.")
 	else:
 		print("Something went wrong, the file has the wrong type, expected a dict but got: ", type(trainingData))

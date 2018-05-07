@@ -1,6 +1,9 @@
 import os
 
 import fileHandler as fh
+import main
+
+path = main.get_path()
 
 
 def getInitializedTrainData(useStopWords = False):
@@ -12,23 +15,17 @@ def getInitializedTrainData(useStopWords = False):
 	posProb - the positive probability - amount of positive reviews / total number of reviews
 	negProb - the negative probability - amount of negative reviews / total number of reviews
 	"""
-	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
-	os.chdir(dir_path)
-	posTrainPath = os.getcwd() + "\\Data\\train\\pos\\"  # relative path to positive train positive reviews, make sure data folder is in same directory as this py file.
-	negTrainPath = os.getcwd() + "\\Data\\train\\neg\\"
-	posTrainFiles = fh.getfilelist(posTrainPath)  # list of files
-	negTrainFiles = fh.getfilelist(negTrainPath)  # list of files
+	posTrainFiles = fh.getfilelist(path + "\\train\\pos\\")  # list of files
+	negTrainFiles = fh.getfilelist(path + "\\train\\neg\\")  # list of files
 	posWords = fh.getwords(posTrainFiles)  # list of words
 	negWords = fh.getwords(negTrainFiles)  # list of words
 	posFrequency = fh.makeWordFrequencyDict(posWords, useStopWords)
 	negFrequency = fh.makeWordFrequencyDict(negWords, useStopWords)
 	# dictionaries with frequency of words found in negative reviews, use stopwords if true
-	posProbability = posTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # baseline prob
-	negProbability = negTrainFiles.__len__()/(posTrainFiles.__len__() + negTrainFiles.__len__())  # .50ish?
-	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
-	os.chdir(dir_path)
+	posProbability = posTrainFiles.__len__() / (posTrainFiles.__len__() + negTrainFiles.__len__())  # baseline prob
+	negProbability = negTrainFiles.__len__() / (posTrainFiles.__len__() + negTrainFiles.__len__())  # .50ish?
 	initializedTrainingData = {"posFreq":posFrequency, "negFreq":negFrequency,
-							   "posProb":posProbability, "negProb":negProbability}
+	                           "posProb":posProbability, "negProb":negProbability}
 	return initializedTrainingData
 
 
@@ -40,12 +37,8 @@ def getIntitializedTestData(useStopWords = False):
 	posReviews - the positive reviews
 	negReviews - the negative reviews
 	"""
-	dir_path = os.path.dirname(os.path.realpath(__file__))  # get the path to python file
-	os.chdir(dir_path)
-	posTrainPath = os.getcwd() + "\\Data\\test\\pos\\"  # relative path to positive train positive reviews, make sure data folder is in same directory as this py file.
-	negTrainPath = os.getcwd() + "\\Data\\test\\neg\\"
-	posTrainFiles = fh.getfilelist(posTrainPath)  # list of files
-	negTrainFiles = fh.getfilelist(negTrainPath)  # list of files
+	posTrainFiles = fh.getfilelist(path + "\\test\\pos\\")  # list of files
+	negTrainFiles = fh.getfilelist(path + "\\test\\neg\\")  # list of files
 	i = 0
 	posReviews = {}
 	negReviews = {}
