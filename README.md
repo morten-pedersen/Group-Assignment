@@ -1,17 +1,18 @@
 # Group-Assignment
 
 This is our INFO284 group assignment so far.
-It is expected that the paths to the reviews are as in the following examples:
+Upon starting the program you are expected to provide the path to the dataset. For example:
+C:\Users\user\Documents\GitHub\Group-Assignment\Data
 
-Group-Assignment\Data\test\neg
+It is assumed in the code that the paths to the test and training data is as follows:
+\Data\test\neg
 
-Group-Assignment\Data\train\pos
-
-Where Group-Assignment is the directory that the python source files are located.
+\Data\train\pos
 
 To test, just run main.py and use the commands.
 
-Alternatively you can edit testing.py and run the tests from that file.
-
 Required packeges:
+stop-words
+
+It can easily be installed like this:
 pip install stop-words
