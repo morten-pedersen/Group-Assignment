@@ -2,8 +2,8 @@ import os
 
 from stop_words import get_stop_words
 import main
-import dataHandler
-import fileHandler
+import data_handler
+import file_handler
 import predictor
 import testing
 
@@ -24,11 +24,11 @@ def command(command):
 		setpath         - allows you to set the path to the directory that contains the data
 		"""
 
-	stopwordsinfo = "Stop words are words that doesn't have any negative or positive meaning.\n"\
-	                "It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n"\
-	                "It can help performance and has an impact on the result."
+	stop_words_info = "Stop words are words that doesn't have any negative or positive meaning.\n"\
+	                  "It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n"\
+	                  "It can help performance and has an impact on the result."
 
-	stopwordcommands = """				Available commands are:
+	stop_word_commands = """				Available commands are:
 		help / commands - lists the commands
 		info            - lists info about stopwords
 		back            - go back to prevous section
@@ -41,87 +41,86 @@ def command(command):
 
 	elif command == "wordcount":
 		word = input("Type in the word: ")
-		data = dataHandler.getInitializedTrainData()
-		posFr = data["posFreq"]
-		negFr = data["negFreq"]
-		print(word, " was found ", fileHandler.getSpecificWord(posFr, word), " times in the positive reviews\n")
-		print(word, " was found ", fileHandler.getSpecificWord(negFr, word), " times in the negative reviews\n")
+		data = data_handler.get_initialized_train_data()
+		pos_fr = data["posFreq"]
+		neg_fr = data["negFreq"]
+		print(word, " was found ", file_handler.get_specific_word(pos_fr, word), " times in the positive reviews\n")
+		print(word, " was found ", file_handler.get_specific_word(neg_fr, word), " times in the negative reviews\n")
 
 
 	elif command == "setpath":
-		main.setPath()
+		main.set_path()
 
 	elif command == "runtest":
 		done = False
-		clearWindow()
+		clear_window()
 		while not done:
-			testToRun = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
-			                  "1  - preProcessTrainingdata      - This will prerocess the training data and save it as a .test file\n"
-			                  "2  - preProcessTestData          - This will preprocess the test data and save it as a .test file\n"
-			                  "3  - testPredictionWithLoadedFile- This will attempt to do the predictions on the testdata using the .test files\n"
-			                  "4  - savingAndLoadingTests       - This test will attempt to save data to a .test file, then load it\n"
-			                  "5  - cleanup                     - This will remove all .test files\n"
-			                  "6  - testingPredictions          - This will attempt to predict one positive and one negative review\n"
-			                  "7  - testingTestDataProcessing   - This will test if the testdata can be processed\n"
-			                  "8  - testPredictTestReviews      - This will attempt to predict all the test reviews, not using preprocessed data\n"
-			                  "9  - testStopWords               - This test will predict one positive and one negative review while using stopwords\n"
-			                  "10 - bigStopWordTest             - This test will attempt to predict all the testreviews while using stopwords\n"
-			                  "11 - all                         - This will run all the tests.\n")
-			testToRun = testToRun.lower()
-			print("Attempting to run ", testToRun)
-			if testToRun == "1":
-				testing.createTrainingdataFiles()
+			test_to_run = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
+			                    "1  - preProcessTrainingdata      - This will prerocess the training data and save it as a .test file\n"
+			                    "2  - preProcessTestData          - This will preprocess the test data and save it as a .test file\n"
+			                    "3  - test_prediction_with_loaded_file- This will attempt to do the predictions on the testdata using the .test files\n"
+			                    "4  - saving_and_loading_tests       - This test will attempt to save data to a .test file, then load it\n"
+			                    "5  - cleanup                     - This will remove all .test files\n"
+			                    "6  - testingPredictions          - This will attempt to predict one positive and one negative review\n"
+			                    "7  - testing_test_data_processing   - no longer exists\n" # TODO REMOVE THIS AND REORDER
+			                    "8  - test_predict_test_reviews      - This will attempt to predict all the test reviews, not using preprocessed data\n"
+			                    "9  - test_stop_words               - This test will predict one positive and one negative review while using stopwords\n"
+			                    "10 - big_stop_word_test             - This test will attempt to predict all the testreviews while using stopwords\n"
+			                    "11 - all                         - This will run all the tests.\n")
+			test_to_run = test_to_run.lower()
+			print("Attempting to run ", test_to_run)
+			if test_to_run == "1":
+				testing.create_trainingdata_files()
 
-			elif testToRun == "2":
-				testing.createTestdataFiles()
+			elif test_to_run == "2":
+				testing.create_testdata_files()
 
-			elif testToRun == "3":
-				testing.testPredictionWithLoadedFile()
+			elif test_to_run == "3":
+				testing.test_prediction_with_loaded_file()
 
-			elif testToRun == "4":
-				testing.savingAndLoadingTests()
+			elif test_to_run == "4":
+				testing.saving_and_loading_tests()
 
-			elif testToRun == "5":
-				testing.cleanupFilesFromTests()
+			elif test_to_run == "5":
+				testing.cleanup_files_from_tests()
 
-			elif testToRun == "6":
-				testing.testingTwoPredictions()
+			elif test_to_run == "6":
+				testing.testing_two_predictions()
 
-			elif testToRun == "7":
-				testing.testingTestDataProcessing()
+			elif test_to_run == "7":
+				print("no longer exists")
 
-			elif testToRun == "8":
-				testing.testPredictTestReviews()
+			elif test_to_run == "8":
+				testing.test_predict_test_reviews()
 
-			elif testToRun == "9":
-				testing.testStopWords()
+			elif test_to_run == "9":
+				testing.test_stop_words()
 
-			elif testToRun == "10":
-				testing.bigStopWordTest()
+			elif test_to_run == "10":
+				testing.big_stop_word_test()
 
-			elif testToRun == "11":
-				testing.createTrainingdataFiles()
-				testing.createTestdataFiles()
-				testing.testPredictionWithLoadedFile()
-				testing.savingAndLoadingTests()
-				testing.cleanupFilesFromTests()
-				testing.testingTwoPredictions()
-				testing.testingTestDataProcessing()
-				testing.testPredictTestReviews()
-				testing.testStopWords()
-				testing.bigStopWordTest()
+			elif test_to_run == "11":
+				testing.create_trainingdata_files()
+				testing.create_testdata_files()
+				testing.test_prediction_with_loaded_file()
+				testing.saving_and_loading_tests()
+				testing.cleanup_files_from_tests()
+				testing.testing_two_predictions()
+				testing.test_predict_test_reviews()
+				testing.test_stop_words()
+				testing.big_stop_word_test()
 
-			elif testToRun == "back":
+			elif test_to_run == "back":
 				done = True
 				print("Returning to previous section...")
 
 			else:
-				print("Couldn't run ", testToRun, " Maybe you spelled it wrong?\n")
+				print("Couldn't run ", test_to_run, " Maybe you spelled it wrong?\n")
 	elif command == "predict":
 		userReview = input("Enter your review: ")
 		print("Attempting to predict, this may take a while.")
 		print("Your input was: " + userReview + "\n")
-		result = predictor.predictInput(userReview)
+		result = predictor.predict_input(userReview)
 		print(result)
 
 
@@ -130,24 +129,24 @@ def command(command):
 
 	elif command == "stopwords":
 		done = False
-		print(stopwordcommands)
+		print(stop_word_commands)
 		while not done:
-			userInput = input("Type a command. Type help for a list of options: ")
+			user_input = input("Type a command. Type help for a list of options: ")
 
-			if userInput.lower() == "info":
-				print(stopwordsinfo)
+			if user_input.lower() == "info":
+				print(stop_words_info)
 
-			elif userInput == "back":
+			elif user_input == "back":
 				print("Going back...")
 				done = True
 
-			elif userInput == "help" or userInput == "commands":
-				print(stopwordcommands)
+			elif user_input == "help" or user_input == "commands":
+				print(stop_word_commands)
 
-			elif userInput == "clear":
-				clearWindow()
+			elif user_input == "clear":
+				clear_window()
 
-			elif userInput == "listwords":
+			elif user_input == "listwords":
 				stop_words = get_stop_words('english')
 				for word in stop_words:
 					print(word)
@@ -156,13 +155,13 @@ def command(command):
 
 
 	elif command == "clear":
-		clearWindow()
+		clear_window()
 
 	else:  # if a command that doesnt exist is typed in.
 		print(help)
 
 
-def clearWindow():
+def clear_window():
 	"""
 	This function will write 100 blank lines to clear the window and then use system call.
 	Doing both cause pycharm
