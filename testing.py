@@ -5,8 +5,6 @@ import data_handler
 import file_handler
 import predictor as predict
 
-path = main.get_path()
-
 
 def testing_two_predictions(use_stop_words = False):
 	"""
@@ -18,8 +16,8 @@ def testing_two_predictions(use_stop_words = False):
 	else:
 		print("Running testing_two_predictions...")
 
-	pos_review_path = path + "\\test\\pos\\1_10.txt"  # positive review
-	neg_review_path = path + "\\test\\neg\\0_2.txt"  # negative review
+	pos_review_path = main.get_path() + "\\test\\pos\\1_10.txt"  # positive review
+	neg_review_path = main.get_path() + "\\test\\neg\\0_2.txt"  # negative review
 	training_data = data_handler.get_initialized_train_data(use_stop_words)
 	pos_frequency = training_data["pos_freq"]
 	neg_frequency = training_data["neg_freq"]

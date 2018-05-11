@@ -10,6 +10,7 @@ def set_path():
 	Function will ask for the user to input the path to the data, if test and train is found to be in the directory it
 	will save the path to config.path. Keeps looping until a proper path is given.
 	"""
+	global path
 	directory_names = []
 	path = input(
 		"Please give the location of the directory. Just copypaste it in. For example: C:\\Users\\user\\Documents\\GitHub\\Group-Assignment\\Data \n")

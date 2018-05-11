@@ -3,8 +3,6 @@ import os
 import file_handler as fh
 import main
 
-path = main.get_path()
-
 
 def get_initialized_train_data(use_stop_words = False):
 	"""
@@ -15,17 +13,18 @@ def get_initialized_train_data(use_stop_words = False):
 	pos_prob - the positive probability - amount of positive reviews / total number of reviews
 	neg_prob - the negative probability - amount of negative reviews / total number of reviews
 	"""
-	pos_train_files = fh.get_filelist(path + "\\train\\pos\\")  # list of files
-	neg_train_files = fh.get_filelist(path + "\\train\\neg\\")  # list of files
+	pos_train_files = fh.get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
+	neg_train_files = fh.get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
 	pos_words = fh.get_words(pos_train_files)  # list of words
 	neg_words = fh.get_words(neg_train_files)  # list of words
 	pos_frequency = fh.make_word_frequency_dict(pos_words, use_stop_words)
 	neg_frequency = fh.make_word_frequency_dict(neg_words, use_stop_words)
 	# dictionaries with frequency of words found in negative reviews, use stopwords if true
-	pos_probability = pos_train_files.__len__() / (pos_train_files.__len__() + neg_train_files.__len__())  # baseline prob
+	pos_probability = pos_train_files.__len__() / (
+				pos_train_files.__len__() + neg_train_files.__len__())  # baseline prob
 	neg_probability = neg_train_files.__len__() / (pos_train_files.__len__() + neg_train_files.__len__())  # .50ish?
 	initialized_training_data = {"pos_freq":pos_frequency, "neg_freq":neg_frequency,
-	                           "pos_prob":pos_probability, "neg_prob":neg_probability}
+	                             "pos_prob":pos_probability, "neg_prob":neg_probability}
 	return initialized_training_data
 
 
@@ -37,8 +36,8 @@ def get_intitialized_test_data(use_stop_words = False):
 	pos_reviews - the positive reviews
 	neg_reviews - the negative reviews
 	"""
-	pos_train_files = fh.get_filelist(path + "\\test\\pos\\")  # list of files
-	neg_train_files = fh.get_filelist(path + "\\test\\neg\\")  # list of files
+	pos_train_files = fh.get_filelist(main.get_path() + "\\test\\pos\\")  # list of files
+	neg_train_files = fh.get_filelist(main.get_path() + "\\test\\neg\\")  # list of files
 	i = 0
 	pos_reviews = {}
 	neg_reviews = {}
