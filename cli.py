@@ -170,8 +170,8 @@ def command(command):
 
 	elif command == "candidates":
 		print("The candidates are:\n")
-		print("110 - wrote all the code")
-		print("21  - minor testing of the code")
+		print("110 - wrote all the code and worked on the report")
+		print("21  - testing of the code and worked on the report")
 
 	else:  # if a command that doesnt exist is typed in.
 		print(help)
