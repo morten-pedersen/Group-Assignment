@@ -119,7 +119,7 @@ def train():
 	else:
 		pass
 	final_time = time.time() - start_time
-	print("It took: "f'{final_time:.2f}'" seconds to run\n")  # TODO REMOVE BEFORE SUBMITTING
+	print("It took: "f'{final_time:.2f}'" seconds to load the classifier\n")  # TODO REMOVE BEFORE SUBMITTING??
 	return {
 		"pos_words_dict":pos_words_dict,
 		"neg_words_dict":neg_words_dict,

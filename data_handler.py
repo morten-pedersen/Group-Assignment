@@ -77,8 +77,6 @@ def count_text(words):
 	return Counter(words)
 
 
-# return Counter(words)
-
 def save_object(obj, filename):
 	"""
 	This function can take an object and save it to the drive
