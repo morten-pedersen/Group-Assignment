@@ -27,7 +27,8 @@ def command(command):
 
 	stop_words_info = "Stop words are words that doesn't have any negative or positive meaning.\n"\
 	                  "It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n"\
-	                  "It can help performance and has an impact on the result."
+	                  "It can help performance and has an impact on the result.\n"\
+	                  "The way we handle stop-words is to just skip skip words that are found in the list of stop-words."
 
 	stop_word_commands = """				Available commands are:
 		help / commands - lists the commands
@@ -97,13 +98,17 @@ def command(command):
 			if user_input == "1":
 				classifier.train()
 				print("Classifier is ready.")
+
 			elif user_input == "2":
 				classifier.load_test_dataset()
 				print("Test data is ready.")
+
 			elif user_input == "3":
+				print("Attempting to predict the test reviews. This may take a while.")
 				testing.test_predict_test_dataset()
 
 			elif user_input == "4":
+				print("Attempting to predict the test reviews while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_stopwords()
 
 			elif user_input == "5":
