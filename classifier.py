@@ -1,5 +1,5 @@
 import math
-
+import time
 import data_handler
 from stop_words import get_stop_words
 
@@ -98,7 +98,7 @@ def train():
 	:return:
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative, test_pos_reviews, test_neg_reviews
-
+	start_time = time.time()
 	if pos_words_dict == None:  # check if a variable is missing, if it is they all are and has to be added.
 
 		try:
@@ -115,8 +115,11 @@ def train():
 				"Couldn't load test data from the classifier.trained file. Processing the training data now, this may take a while...")
 			data = process_training_data()
 			data_handler.save_object(data, "classifier.trained")
+
 	else:
 		pass
+	final_time = time.time() - start_time
+	print("It took: "f'{final_time:.2f}'" seconds to run\n")  # TODO REMOVE BEFORE SUBMITTING
 	return {
 		"pos_words_dict":pos_words_dict,
 		"neg_words_dict":neg_words_dict,

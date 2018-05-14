@@ -22,6 +22,7 @@ def command(command):
 		stopwords       - learn more about stopwords
 		setpath         - allows you to set the path to the directory that contains the data
 		topwords        - this will list the most common positive or negative words
+		candidates      - list the people that contributed to the assignment and how they contributed
 		"""
 
 	stop_words_info = "Stop words are words that doesn't have any negative or positive meaning.\n"\
@@ -84,35 +85,36 @@ def command(command):
 		done = False
 		clear_window()
 		while not done:  #TODO finish commands
-			test_to_run = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
-			                    "1  - train                              - This will attempt to load the preprocessed training data from the file, if it can't it will process it and save it as a file \n"
-			                    "2  - load test data                     - this will load the test data from the file test.data if possible, if it can't it will process the test data and save it as test.data\n"
-			                    "3  - predict the test reviews           - This will attempt to predict the test reviews\n"
-			                    "4  - Predict test review with stopwords - This will attempt to predict the test reviews while using stopwords\n"
-			                    "5  - cleanup                            - This will remove all files created by this program\n")
-			test_to_run = test_to_run.lower()
-			print("Attempting to run ", test_to_run)
-			if test_to_run == "1":
+			user_input = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
+			                   "1  - train                              - This will attempt to load the preprocessed training data from the file, if it can't it will process it and save it as a file \n"
+			                   "2  - load test data                     - this will load the test data from the file test.data if possible, if it can't it will process the test data and save it as test.data\n"
+			                   "3  - predict the test reviews           - This will attempt to predict the test reviews\n"
+			                   "4  - Predict test review with stopwords - This will attempt to predict the test reviews while using stopwords\n"
+			                   "5  - cleanup                            - This will remove all files created by this program\n"
+			                   "back                                    - Return back to main menu\n")
+			user_input = user_input.lower()
+			print("Running ", user_input)
+			if user_input == "1":
 				classifier.train()
 				print("Classifier is ready.")
-			elif test_to_run == "2":
+			elif user_input == "2":
 				classifier.load_test_dataset()
 				print("Test data is ready.")
-			elif test_to_run == "3":
+			elif user_input == "3":
 				testing.test_predict_test_dataset()
 
-			elif test_to_run == "4":
+			elif user_input == "4":
 				testing.test_predict_test_dataset_with_stopwords()
 
-			elif test_to_run == "5":
+			elif user_input == "5":
 				data_handler.cleanup_files()
 
-			elif test_to_run == "back":
+			elif user_input == "back":
 				done = True
 				print("Returning to previous section...")
 
 			else:
-				print("Couldn't run ", test_to_run, " Maybe you spelled it wrong?\n")
+				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
 	elif command == "predict":
 		done = False
 		while not done:
@@ -160,6 +162,11 @@ def command(command):
 
 	elif command == "clear":
 		clear_window()
+
+	elif command == "candidates":
+		print("The candidates are:\n")
+		print("110 - wrote all the code")
+		print("21  - minor testing of the code")
 
 	else:  # if a command that doesnt exist is typed in.
 		print(help)

@@ -1,9 +1,8 @@
 import os
 import pickle
 import re
-from collections.__init__ import Counter
-
 import main
+from collections.__init__ import Counter
 
 
 def get_initialized_train_data():
@@ -77,6 +76,8 @@ def count_text(words):
 	"""
 	return Counter(words)
 
+
+# return Counter(words)
 
 def save_object(obj, filename):
 	"""
