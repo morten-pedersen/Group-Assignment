@@ -1,6 +1,7 @@
 import cli
 import os
-import file_handler
+
+import data_handler
 
 path = None
 
@@ -27,7 +28,7 @@ def set_path():
 		proper_location = True
 
 	if proper_location:
-		file_handler.save_object(path, "path.config")
+		data_handler.save_object(path, "path.config")
 		print(
 			"test and train was found in the directory. Saving the path to path.config for future use. You can change this path later.")
 	else:
@@ -43,7 +44,7 @@ def check_path():
 	global path
 	print("Attempting to locate path to data directory")
 	try:
-		path = file_handler.load_object("path.config")
+		path = data_handler.load_object("path.config")
 	except Exception as e:
 		print(e)
 		return False
@@ -57,7 +58,7 @@ def get_path():
 	"""
 	dir_path = os.path.dirname(os.path.realpath(__file__))
 	os.chdir(dir_path)  # changes the current working directory to pathname
-	path = file_handler.load_object("path.config")
+	path = data_handler.load_object("path.config")
 	return path
 
 

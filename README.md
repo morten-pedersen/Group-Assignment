@@ -12,7 +12,7 @@ It is assumed in the code that the paths to the test and training data is as fol
 
 To test, just run main.py and use the commands.
 
-Required packeges:
+Required packages:
 stop-words
 
 It can easily be installed like this:
