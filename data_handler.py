@@ -29,7 +29,7 @@ def get_initialized_train_data():
 	return initialized_training_data
 
 
-def get_test_data(use_training_data=False):
+def get_test_data(use_training_data = False):
 	"""
 	Test data is gathered, processed and put in dictionaries
 	:return: dict with positive and negative reviews
@@ -37,7 +37,7 @@ def get_test_data(use_training_data=False):
 	pos_reviews - the positive reviews
 	neg_reviews - the negative reviews
 	"""
-	if use_training_data==True:
+	if use_training_data == True:
 		pos_train_files = get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
 		neg_train_files = get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
 	else:
@@ -59,7 +59,6 @@ def get_test_data(use_training_data=False):
 
 	test_data = {"pos_reviews":pos_reviews, "neg_reviews":neg_reviews}
 	return test_data
-
 
 
 def get_training_words():
@@ -230,5 +229,11 @@ def cleanup_files():
 	try:
 		os.remove(os.getcwd() + "\\classifier.trained")
 		print("classifier.trained was removed.")
+	except Exception as e:
+		pass
+
+	try:
+		os.remove(os.getcwd() + "\\training.dataset")
+		print("training.dataset was removed.")
 	except Exception as e:
 		pass
