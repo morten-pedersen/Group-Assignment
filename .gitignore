@@ -111,3 +111,4 @@ ENV/
 path.config
 classifier.trained
 test.dataset
+training.dataset

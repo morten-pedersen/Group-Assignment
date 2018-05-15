@@ -29,7 +29,7 @@ def get_initialized_train_data():
 	return initialized_training_data
 
 
-def get_test_data():
+def get_test_data(use_training_data=False):
 	"""
 	Test data is gathered, processed and put in dictionaries
 	:return: dict with positive and negative reviews
@@ -37,8 +37,13 @@ def get_test_data():
 	pos_reviews - the positive reviews
 	neg_reviews - the negative reviews
 	"""
-	pos_train_files = get_filelist(main.get_path() + "\\test\\pos\\")  # list of files
-	neg_train_files = get_filelist(main.get_path() + "\\test\\neg\\")  # list of files
+	if use_training_data==True:
+		pos_train_files = get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
+		neg_train_files = get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
+	else:
+
+		pos_train_files = get_filelist(main.get_path() + "\\test\\pos\\")  # list of files
+		neg_train_files = get_filelist(main.get_path() + "\\test\\neg\\")  # list of files
 	i = 0
 	pos_reviews = {}
 	neg_reviews = {}
@@ -54,6 +59,7 @@ def get_test_data():
 
 	test_data = {"pos_reviews":pos_reviews, "neg_reviews":neg_reviews}
 	return test_data
+
 
 
 def get_training_words():

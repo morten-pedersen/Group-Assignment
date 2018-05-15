@@ -92,7 +92,9 @@ def command(command):
 			                   "3  - predict the test reviews           - This will attempt to predict the test reviews\n"
 			                   "4  - Predict test review with stopwords - This will attempt to predict the test reviews while using stopwords\n"
 			                   "5  - cleanup                            - This will remove all files created by this program\n"
-			                   "back                                    - Return back to main menu\n")
+			                   "back                                    - Return back to main menu\n"
+			                   "6  - predict training reviews           - This will predict the training data\n"
+			                   "7  - predict training reviews with stopwords - This will predict the training data with stopwords\n")
 			user_input = user_input.lower()
 			print("Running ", user_input)
 			if user_input == "1":
@@ -118,6 +120,13 @@ def command(command):
 				done = True
 				print("Returning to previous section...")
 
+			elif user_input == "6":
+				print("Attempting to predict the training reviews. THis may take a while.")
+				testing.test_predict_train_dataset()
+
+			elif user_input == "7":
+				print("Attempting to predict the training reviews with stopwords. This may take a while.")
+				testing.test_predict_train_dataset_with_stopwords()
 			else:
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
 	elif command == "predict":

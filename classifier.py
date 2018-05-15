@@ -155,7 +155,7 @@ def process_training_data():
 		"prob_negative":prob_negative}
 
 
-def load_test_dataset():
+def load_test_dataset(use_training_data = False):
 	"""
 	This will load the test dataset from test.data if possible, else it will process it and create that file.
 	:return:
@@ -163,24 +163,37 @@ def load_test_dataset():
 	#test reviews
 	global test_pos_reviews, test_neg_reviews
 	if test_pos_reviews == None or test_neg_reviews == None:
+		if use_training_data == False:
+			try:
+				test_data = data_handler.load_object("test.dataset")
+				test_pos_reviews = test_data["pos_reviews"]
+				test_neg_reviews = test_data["neg_reviews"]
 
-		try:
-			test_data = data_handler.load_object("test.dataset")
-			test_pos_reviews = test_data["pos_reviews"]
-			test_neg_reviews = test_data["neg_reviews"]
+			except Exception:
+				print(
+					"Couldn't load test data from the test.dataset file. Processing the test data now, this may take a while...")
+				test_data = data_handler.get_test_data()
+				test_pos_reviews = test_data["pos_reviews"]
+				test_neg_reviews = test_data["neg_reviews"]
+				data_handler.save_object(test_data, "test.dataset")
+		else:
+			try:
+				test_data = data_handler.load_object("training.dataset")
+				test_pos_reviews = test_data["pos_reviews"]
+				test_neg_reviews = test_data["neg_reviews"]
 
-		except Exception:
-			print(
-				"Couldn't load test data from the test.dataset file. Processing the test data now, this may take a while...")
-			test_data = data_handler.get_test_data()
-			test_pos_reviews = test_data["pos_reviews"]
-			test_neg_reviews = test_data["neg_reviews"]
-			data_handler.save_object(test_data, "test.dataset")
+			except Exception:
+				print(
+					"Couldn't load test data from the training.dataset file. Processing the test data now, this may take a while...")
+				test_data = data_handler.get_test_data(use_training_data = use_training_data)
+				test_pos_reviews = test_data["pos_reviews"]
+				test_neg_reviews = test_data["neg_reviews"]
+				data_handler.save_object(test_data, "training.dataset")
 
 	return test_pos_reviews, test_neg_reviews
 
 
-def predict_test_reviews(use_stop_words = False):
+def predict_reviews(use_stop_words = False, predict_training_data = False):
 	"""
 	Predicts all the test reviews
 	:return: a dict with the results, keys are:
@@ -189,7 +202,7 @@ def predict_test_reviews(use_stop_words = False):
 	correct_predictions
 	incorrect_predictions
 	"""
-	load_test_dataset()
+	load_test_dataset(use_training_data = predict_training_data)
 	predicted_positive = 0
 	predicted_negative = 0
 	correct_predictions = 0
