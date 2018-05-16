@@ -91,7 +91,7 @@ def decide_outcome(positive_prediction, negative_prediction):
 		return 1
 
 
-def train():
+def train(use_testing_data = False):
 	"""
 	This will attempt to load the classifier and declare the variables,
 	if it is unable to do so it will load the data and save it as classifier.trained
@@ -99,22 +99,21 @@ def train():
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative, test_pos_reviews, test_neg_reviews
 	start_time = time.time()
-	if pos_words_dict == None:  # check if a variable is missing, if it is they all are and has to be added.
 
-		try:
-			data = data_handler.load_object("classifier.trained")
+	try:
+		data = data_handler.load_object("classifier.trained")
 
-			pos_words_dict = data["pos_words_dict"]
-			neg_words_dict = data["neg_words_dict"]
-			positive_review_count = data["positive_review_count"]
-			negative_review_count = data["negative_review_count"]
-			prob_positive = data["prob_positive"]
-			prob_negative = data["prob_negative"]
-		except Exception as e:
-			print(
-				"Couldn't load test data from the classifier.trained file. Processing the training data now, this may take a while...")
-			data = process_training_data()
-			data_handler.save_object(data, "classifier.trained")
+		pos_words_dict = data["pos_words_dict"]
+		neg_words_dict = data["neg_words_dict"]
+		positive_review_count = data["positive_review_count"]
+		negative_review_count = data["negative_review_count"]
+		prob_positive = data["prob_positive"]
+		prob_negative = data["prob_negative"]
+	except Exception as e:
+		print(
+			"Couldn't load test data from the classifier.trained file. Processing the training data now, this may take a while...")
+		data = process_training_data()
+		data_handler.save_object(data, "classifier.trained")
 
 	else:
 		pass
