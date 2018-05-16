@@ -175,33 +175,33 @@ def load_test_dataset(use_training_data = False):
 	#test reviews
 	start_time = time.time()
 	global test_pos_reviews, test_neg_reviews
-	if test_pos_reviews == None or test_neg_reviews == None:
-		if use_training_data == False:
-			try:
-				test_data = data_handler.load_object("test.dataset")
-				test_pos_reviews = test_data["pos_reviews"]
-				test_neg_reviews = test_data["neg_reviews"]
 
-			except Exception:
-				print(
-					"Couldn't load test data from the test.dataset file. Processing the test data now, this may take a while...")
-				test_data = data_handler.get_test_data()
-				test_pos_reviews = test_data["pos_reviews"]
-				test_neg_reviews = test_data["neg_reviews"]
-				data_handler.save_object(test_data, "test.dataset")
-		else:
-			try:
-				test_data = data_handler.load_object("training.dataset")
-				test_pos_reviews = test_data["pos_reviews"]
-				test_neg_reviews = test_data["neg_reviews"]
+	if use_training_data == False:
+		try:
+			test_data = data_handler.load_object("test.dataset")
+			test_pos_reviews = test_data["pos_reviews"]
+			test_neg_reviews = test_data["neg_reviews"]
 
-			except Exception:
-				print(
-					"Couldn't load test data from the training.dataset file. Processing the test data now, this may take a while...")
-				test_data = data_handler.get_test_data(use_training_data = use_training_data)
-				test_pos_reviews = test_data["pos_reviews"]
-				test_neg_reviews = test_data["neg_reviews"]
-				data_handler.save_object(test_data, "training.dataset")
+		except Exception:
+			print(
+				"Couldn't load test data from the test.dataset file. Processing the test data now, this may take a while...")
+			test_data = data_handler.get_test_data()
+			test_pos_reviews = test_data["pos_reviews"]
+			test_neg_reviews = test_data["neg_reviews"]
+			data_handler.save_object(test_data, "test.dataset")
+	else:
+		try:
+			test_data = data_handler.load_object("training.dataset")
+			test_pos_reviews = test_data["pos_reviews"]
+			test_neg_reviews = test_data["neg_reviews"]
+
+		except Exception:
+			print(
+				"Couldn't load test data from the training.dataset file. Processing the test data now, this may take a while...")
+			test_data = data_handler.get_test_data(use_training_data = use_training_data)
+			test_pos_reviews = test_data["pos_reviews"]
+			test_neg_reviews = test_data["neg_reviews"]
+			data_handler.save_object(test_data, "training.dataset")
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to load the test dataset\n")
 	return test_pos_reviews, test_neg_reviews
