@@ -98,7 +98,8 @@ def command(command):
 			                   "8  - predict training reviews with testing dataset                     - This will classify the training reviews, using the testing data for the classifier\n"
 			                   "9  - predict training reviews with testing dataset, using stopwords    - This will classify the training reviews, using the testing data for the classifier and stopwords\n"
 			                   "10 - predict testing reviews with testing dataset                      - This will classify the testing reviews, using the testing data for the classifier\n"
-			                   "11 - predict testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n")
+			                   "11 - predict testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n"
+			                   "12 - all                                                               - This will run all the tests\n")
 			user_input = user_input.lower()
 			print("Running ", user_input)
 			if user_input == "1":
@@ -149,6 +150,37 @@ def command(command):
 					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
 
+			elif user_input == "12":
+				line = "_____________________________________________________________________________________________________________________________"
+				print("Attempting to classify the test reviews. This may take a while.")
+				testing.test_predict_test_dataset()
+				print(line)
+
+				print("Attempting to classify the test reviews while using stop-words. This may take a while.")
+				testing.test_predict_test_dataset_with_stopwords()
+				print(line)
+				print("Attempting to classify the training reviews. This may take a while.")
+				testing.test_predict_train_dataset()
+				print(line)
+				print("Attempting to classify the training reviews with stopwords. This may take a while.")
+				testing.test_predict_train_dataset_with_stopwords()
+				print(line)
+				print(
+					"Attempting to classify training dataset while using the testing dataset for the classifier. This may take a while.")
+				testing.test_predict_train_dataset_with_testing_data()
+				print(line)
+				print(
+					"Attempting to classify training dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
+				testing.test_predict_train_dataset_with_testing_data_with_stopwords()
+				print(line)
+				print(
+					"Attempting to classify testing dataset while using the testing dataset for the classifier. This may take a while.")
+				testing.test_predict_test_dataset_with_testing_data()
+				print(line)
+				print(
+					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
+				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
+				print(line)
 
 			else:
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
