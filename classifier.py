@@ -184,7 +184,7 @@ def load_test_dataset(use_training_data = False):
 
 		except Exception:
 			print(
-				"Couldn't load test data from the test.dataset file. Processing the test data now, this may take a while...")
+				"Couldn't load test data from the test.dataset file. Processing the test data now, this may take a while.")
 			test_data = data_handler.get_test_data()
 			test_pos_reviews = test_data["pos_reviews"]
 			test_neg_reviews = test_data["neg_reviews"]
@@ -197,7 +197,7 @@ def load_test_dataset(use_training_data = False):
 
 		except Exception:
 			print(
-				"Couldn't load test data from the training.dataset file. Processing the test data now, this may take a while...")
+				"Couldn't load test data from the training.dataset file. Processing the test data now, this may take a while.")
 			test_data = data_handler.get_test_data(use_training_data = use_training_data)
 			test_pos_reviews = test_data["pos_reviews"]
 			test_neg_reviews = test_data["neg_reviews"]
