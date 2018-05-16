@@ -87,14 +87,18 @@ def command(command):
 		clear_window()
 		while not done:  #TODO finish commands
 			user_input = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
-			                   "1  - train                              - This will attempt to load the preprocessed training data from the file, if it can't it will process it and save it as a file \n"
-			                   "2  - load test data                     - this will load the test data from the file test.data if possible, if it can't it will process the test data and save it as test.data\n"
-			                   "3  - predict the test reviews           - This will attempt to predict the test reviews\n"
-			                   "4  - Predict test review with stopwords - This will attempt to predict the test reviews while using stopwords\n"
-			                   "5  - cleanup                            - This will remove all files created by this program\n"
-			                   "back                                    - Return back to main menu\n"
-			                   "6  - predict training reviews           - This will predict the training data\n"
-			                   "7  - predict training reviews with stopwords - This will predict the training data with stopwords\n")
+			                   "1  - train                                                             - This will attempt to load the preprocessed training data from the file, if it can't it will process it and save it as a file \n"
+			                   "2  - load test data                                                    - this will load the test data from the file test.data if possible, if it can't it will process the test data and save it as test.data\n"
+			                   "3  - predict the test reviews                                          - This will attempt to predict the test reviews\n"
+			                   "4  - Predict test review with stopwords                                - This will attempt to predict the test reviews while using stopwords\n"
+			                   "5  - cleanup                                                           - This will remove all files created by this program\n"
+			                   "back                                                                   - Return back to main menu\n"
+			                   "6  - predict training reviews                                          - This will predict the training data\n"
+			                   "7  - predict training reviews with stopwords                           - This will predict the training data with stopwords\n"
+			                   "8  - predict training reviews with testing dataset                     - This will classify the training reviews, using the testing data for the classifier\n"
+			                   "9  - predict training reviews with testing dataset, using stopwords    - This will classify the training reviews, using the testing data for the classifier and stopwords\n"
+			                   "10 - predict testing reviews with testing dataset                      - This will classify the testing reviews, using the testing data for the classifier\n"
+			                   "11 - predict testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n")
 			user_input = user_input.lower()
 			print("Running ", user_input)
 			if user_input == "1":
@@ -106,11 +110,11 @@ def command(command):
 				print("Test data is ready.")
 
 			elif user_input == "3":
-				print("Attempting to predict the test reviews. This may take a while.")
+				print("Attempting to classify the test reviews. This may take a while.")
 				testing.test_predict_test_dataset()
 
 			elif user_input == "4":
-				print("Attempting to predict the test reviews while using stop-words. This may take a while.")
+				print("Attempting to classify the test reviews while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_stopwords()
 
 			elif user_input == "5":
@@ -121,12 +125,31 @@ def command(command):
 				print("Returning to previous section...")
 
 			elif user_input == "6":
-				print("Attempting to predict the training reviews. THis may take a while.")
+				print("Attempting to classify the training reviews. This may take a while.")
 				testing.test_predict_train_dataset()
 
 			elif user_input == "7":
-				print("Attempting to predict the training reviews with stopwords. This may take a while.")
+				print("Attempting to classify the training reviews with stopwords. This may take a while.")
 				testing.test_predict_train_dataset_with_stopwords()
+			elif user_input == "8":
+				print(
+					"Attempting to classify training dataset while using the testing dataset for the classifier. This may take a while.")
+				testing.test_predict_train_dataset_with_testing_data()
+			elif user_input == "9":
+				print(
+					"Attempting to classify training dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
+				testing.test_predict_train_dataset_with_testing_data_with_stopwords()
+			elif user_input == "10":
+				print(
+					"Attempting to classify testing dataset while using the testing dataset for the classifier. This may take a while.")
+				testing.test_predict_test_dataset_with_testing_data()
+
+			elif user_input == "11":
+				print(
+					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
+				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
+
+
 			else:
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
 	elif command == "predict":

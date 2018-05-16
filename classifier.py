@@ -99,24 +99,37 @@ def train(use_testing_data = False):
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative, test_pos_reviews, test_neg_reviews
 	start_time = time.time()
+	if use_testing_data == False:
+		try:
+			data = data_handler.load_object("classifier.trained")
 
-	try:
-		data = data_handler.load_object("classifier.trained")
+			pos_words_dict = data["pos_words_dict"]
+			neg_words_dict = data["neg_words_dict"]
+			positive_review_count = data["positive_review_count"]
+			negative_review_count = data["negative_review_count"]
+			prob_positive = data["prob_positive"]
+			prob_negative = data["prob_negative"]
+		except Exception as e:
+			print(
+				"Couldn't load test data from the classifier.trained file. Processing the training data now, this may take a while...")
+			data = process_training_data()
+			data_handler.save_object(data, "classifier.trained")
 
-		pos_words_dict = data["pos_words_dict"]
-		neg_words_dict = data["neg_words_dict"]
-		positive_review_count = data["positive_review_count"]
-		negative_review_count = data["negative_review_count"]
-		prob_positive = data["prob_positive"]
-		prob_negative = data["prob_negative"]
-	except Exception as e:
-		print(
-			"Couldn't load test data from the classifier.trained file. Processing the training data now, this may take a while...")
-		data = process_training_data()
-		data_handler.save_object(data, "classifier.trained")
+	else:  # use testing data to train
+		try:
+			data = data_handler.load_object("classifier_from_testing_data.trained")
+			pos_words_dict = data["pos_words_dict"]
+			neg_words_dict = data["neg_words_dict"]
+			positive_review_count = data["positive_review_count"]
+			negative_review_count = data["negative_review_count"]
+			prob_positive = data["prob_positive"]
+			prob_negative = data["prob_negative"]
+		except Exception as e:
+			print(
+				"Couldn't load test data from the classifier.trained file. Processing the training data now, this may take a while...")
+			data = process_training_data(use_testing_data = use_testing_data)
+			data_handler.save_object(data, "classifier_from_testing_data.trained")
 
-	else:
-		pass
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to load the classifier\n")  # TODO REMOVE BEFORE SUBMITTING??
 	return {
@@ -128,15 +141,15 @@ def train(use_testing_data = False):
 		"prob_negative":prob_negative}
 
 
-def process_training_data():
+def process_training_data(use_testing_data = False):
 	"""
 	This will process the training data and prepare it for the classifier
 	:return: pos_words_dict, neg_words_dict, positive_review_count,
 			negative_review_count, prob_positive, prob_negative
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative
-	training_data = data_handler.get_training_words()  # This will have training data ready, prepared for counting etc.
 
+	training_data = data_handler.get_training_words(use_testing_data = use_testing_data)
 	pos_words_dict = data_handler.count_text(training_data[0])
 	neg_words_dict = data_handler.count_text(training_data[1])
 	positive_review_count = training_data[2]
@@ -160,6 +173,7 @@ def load_test_dataset(use_training_data = False):
 	:return:
 	"""
 	#test reviews
+	start_time = time.time()
 	global test_pos_reviews, test_neg_reviews
 	if test_pos_reviews == None or test_neg_reviews == None:
 		if use_training_data == False:
@@ -188,7 +202,8 @@ def load_test_dataset(use_training_data = False):
 				test_pos_reviews = test_data["pos_reviews"]
 				test_neg_reviews = test_data["neg_reviews"]
 				data_handler.save_object(test_data, "training.dataset")
-
+	final_time = time.time() - start_time
+	print("It took: "f'{final_time:.2f}'" seconds to load the test dataset\n")
 	return test_pos_reviews, test_neg_reviews
 
 

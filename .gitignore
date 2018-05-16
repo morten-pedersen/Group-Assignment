@@ -112,3 +112,4 @@ path.config
 classifier.trained
 test.dataset
 training.dataset
+classifier_from_testing_data.trained

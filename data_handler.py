@@ -61,15 +61,23 @@ def get_test_data(use_training_data = False):
 	return test_data
 
 
-def get_training_words():
+def get_training_words(use_testing_data = False):
 	"""
 	This function will gather all the training data and return them as a tuple
 	:return: a tuple where [0]=pos_words & [1]=neg_words [2]=number of positive reviews, [3]=number of negative reviews
 	"""
-	pos_train_files = get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
-	neg_train_files = get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
-	pos_words = get_words(pos_train_files)  # list of words
-	neg_words = get_words(neg_train_files)  # list of words
+	if use_testing_data == False:
+		pos_train_files = get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
+		neg_train_files = get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
+		pos_words = get_words(pos_train_files)  # list of words
+		neg_words = get_words(neg_train_files)  # list of words
+
+	else:  # load the testing dataset
+		pos_train_files = get_filelist(main.get_path() + "\\test\\pos\\")  # list of files
+		neg_train_files = get_filelist(main.get_path() + "\\test\\neg\\")  # list of files
+		pos_words = get_words(pos_train_files)  # list of words
+		neg_words = get_words(neg_train_files)  # list of words
+
 	return pos_words, neg_words, pos_train_files.__len__(), neg_train_files.__len__()
 
 
