@@ -176,16 +176,18 @@ def remove_characters(path, final_list_of_words, text = None):
 		with open(path, encoding = "utf8") as file:  # TODO try except pass??
 			text = file.read().lower()
 			file.close()
-			text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
-			text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
-			words = list(text.split())
+			#text = re.sub('[']', '', text)  # remove characters we dont want
+			text = re.sub('[<>()/!.\":,!?]', ' ',
+			              text)  # adding space where characters exists to separate br tags from words
+			words = list(text.split())  # as well as making sure words aren't put together
 			for word in words:
 				if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
 					final_list_of_words.append(word)
 	else:  # processing input from user in cli
-		text = re.sub('[\'()/!.":,!?]', '', text)  # remove characters we dont want
-		text = re.sub('[<>]', ' ', text)  # adding space where < or > exists to separate br tags from words
-		words = list(text.split())
+		#text = re.sub('[']', '', text)  # remove characters we dont want
+		text = re.sub('[<>()/!.\":,!?]', ' ',
+		              text)  # adding space where characters exists to separate br tags from words
+		words = list(text.split())  # as well as making sure words aren't put together
 		for word in words:
 			if word.__len__() > 1 and word not in "br":  # check if word is more than one character and is not br which is from the html markup
 				final_list_of_words.append(word)
