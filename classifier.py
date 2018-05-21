@@ -50,13 +50,13 @@ def make_class_prediction(text, review_wordcount_dict, review_probability, numbe
 	:return: the predicted value
 	"""
 	prediction = 1
-	if type(text) is list:
+	if type(text) is list: # if it is a list it is not counted, should just be the case for user input
 		text_WC_dict = data_handler.count_text(text)
-	else:
+	else: # it is already counted and does not need to be counted again
 		text_WC_dict = text
 	divide_with_this = (sum(review_wordcount_dict.values()) + number_of_reviews)
 	# to improve performance, this calculation is done once here and called divide_with_this
-	# summing up all the values for every word makes the prediction very slow.
+	# summing up all the values in the dictionary for every word makes the prediction very slow and is not needed.
 	if not use_stop_words:
 		for word in text_WC_dict:
 			prediction += math.log(
