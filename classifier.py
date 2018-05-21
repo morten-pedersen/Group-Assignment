@@ -50,7 +50,10 @@ def make_class_prediction(text, review_wordcount_dict, review_probability, numbe
 	:return: the predicted value
 	"""
 	prediction = 1
-	text_WC_dict = data_handler.count_text(text)
+	if type(text) is list:
+		text_WC_dict = data_handler.count_text(text)
+	else:
+		text_WC_dict = text
 	divide_with_this = (sum(review_wordcount_dict.values()) + number_of_reviews)
 	# to improve performance, this calculation is done once here and called divide_with_this
 	# summing up all the values for every word makes the prediction very slow.
