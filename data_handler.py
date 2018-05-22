@@ -17,7 +17,7 @@ def get_test_data(use_training_data = False):
 	pos_reviews - the positive reviews
 	neg_reviews - the negative reviews
 	"""
-	if use_training_data == True:
+	if use_training_data:
 		pos_train_files = get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
 		neg_train_files = get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
 	else:
@@ -37,7 +37,7 @@ def get_test_data(use_training_data = False):
 		neg_reviews[i] = review
 		i += 1
 
-	test_data = {"pos_reviews":pos_reviews, "neg_reviews":neg_reviews}
+	test_data = {"pos_reviews": pos_reviews, "neg_reviews": neg_reviews}
 	return test_data
 
 
@@ -46,7 +46,7 @@ def get_training_data(use_testing_data = False):
 	This function will gather all the training data and return them as a tuple
 	:return: a tuple where [0]=pos_words & [1]=neg_words [2]=number of positive reviews, [3]=number of negative reviews
 	"""
-	if use_testing_data == False:
+	if not use_testing_data:
 		pos_train_files_paths = get_filelist(main.get_path() + "\\train\\pos\\")  # list of files
 		neg_train_files_paths = get_filelist(main.get_path() + "\\train\\neg\\")  # list of files
 		pos_words = get_words(pos_train_files_paths)  # list of words
@@ -93,8 +93,8 @@ def load_object(filename):
 	:param filename: the filename of the object
 	:return: the object
 	"""
-	with open(filename, 'rb') as input:
-		file = pickle.load(input)
+	with open(filename, 'rb') as file:
+		file = pickle.load(file)
 	return file
 
 
@@ -149,14 +149,14 @@ def remove_characters(path, final_list_of_words, text = None):
 	Function removes character from the file given in the path and appends the words to the list of words
 	:param path: the path to the file
 	:param final_list_of_words: the list that will contain the words
-	:return: Nothing
+	:param text: None by default, if there is a string, it is user input
 	"""
 	if text is None:  # Processing a txt file
 		try:
 			with open(path, encoding = "utf8") as file:
 				text = file.read().lower()
 				file.close()
-				text = re.sub('[<>()/!.\":,!?]', ' ',
+				text = re.sub('[<>()/!.\":,?]', ' ',
 				              text)  # adding space where characters exists to separate br tags from words
 				words = list(text.split())  # as well as making sure words aren't put together
 				for word in words:
@@ -167,7 +167,7 @@ def remove_characters(path, final_list_of_words, text = None):
 			pass
 
 	else:  # processing input from user in cli
-		text = re.sub('[<>()/!.\":,!?]', ' ',
+		text = re.sub('[<>()/!.\":,?]', ' ',
 		              text)  # adding space where characters exists to separate br tags from words
 		words = list(text.split())  # as well as making sure words aren't put together
 		for word in words:
@@ -197,9 +197,9 @@ def get_common_words(dictionary, words_to_return = 20):
 	# finding the frequency of the words in all the dictionaries
 	counter = 1
 	while words_to_return > 0:  # finding the most common words and add them to the list.
-		mostCommon = max(dictionary, key = lambda i:dictionary[i])
-		common_words.append(str(counter) + ". " + str(mostCommon) + ":           " + str(dictionary[mostCommon]))
-		dictionary.__delitem__(mostCommon)
+		most_common = max(dictionary, key = lambda i: dictionary[i])
+		common_words.append(str(counter) + ". " + str(most_common) + ":           " + str(dictionary[most_common]))
+		dictionary.__delitem__(most_common)
 		words_to_return -= 1
 		counter += 1
 
@@ -216,22 +216,22 @@ def cleanup_files():
 	try:
 		os.remove(os.getcwd() + "\\test.dataset")
 		print("test.dataset was removed.")
-	except Exception as e:
+	except Exception:
 		pass
 	try:
 		os.remove(os.getcwd() + "\\classifier.trained")
 		print("classifier.trained was removed.")
-	except Exception as e:
+	except Exception:
 		pass
 
 	try:
 		os.remove(os.getcwd() + "\\training.dataset")
 		print("training.dataset was removed.")
-	except Exception as e:
+	except Exception:
 		pass
 
 	try:
 		os.remove(os.getcwd() + "\\classifier_from_testing_data.trained")
 		print("classifier_from_testing_data.trained was removed.")
-	except Exception as e:
+	except Exception:
 		pass

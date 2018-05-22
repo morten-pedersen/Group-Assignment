@@ -7,7 +7,7 @@ import os
 import cli
 import data_handler
 
-path = None
+path = ""
 
 
 def set_path():

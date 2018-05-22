@@ -16,12 +16,12 @@ def command(command):
 	This function will take a command and execute the command given, or else it will tell the user the command doesnt exist
 	:param command: a string with your command
 	"""
-	help = """				Available commands are:
+	helpme = """				Available commands are:
 		predict	        - Attempts to predict a review by the user 
 		run             - allow you to run different parts of the program
 		exit            - exits the program
 		clear           - clears the window
-		help            - shows the different commands available
+		helpme            - shows the different commands available
 		wordcount       - Will show how many times a word shows up in the trainingdata, type in the word in the next input
 		stopwords       - learn more about stopwords
 		setpath         - allows you to set the path to the directory that contains the data
@@ -34,7 +34,7 @@ def command(command):
 	                  "The way we handle stop-words is to just skip skip words that are found in the list of stop-words."
 
 	stop_word_commands = """				Available commands are:
-		help / commands - lists the commands
+		helpme / commands - lists the commands
 		info            - lists info about stopwords
 		back            - go back to prevous section
 		clear           - clear the window
@@ -54,7 +54,7 @@ def command(command):
 			try:
 				number_of_words = int(number_of_words)
 				is_a_number = True
-			except Exception as e:
+			except Exception:
 				print("Please enter a number.")
 				pass
 
@@ -69,15 +69,13 @@ def command(command):
 			print(item)
 
 	elif command == "wordcount":
-		done = False
-		while not done:  # You can keep trying different words until you type back
+		data = classifier.train()
+		pos_fr = data["pos_words_dict"]
+		neg_fr = data["neg_words_dict"]
+		while True:  # You can keep trying different words until you type back
 			word = input("Type in the word: ")
 			if word == "back":
-				done = True
 				return  # return to "main menu"
-			data = classifier.train()
-			pos_fr = data["pos_words_dict"]
-			neg_fr = data["neg_words_dict"]
 			print(word, " was found ", data_handler.get_specific_word(pos_fr, word), " times in the positive reviews\n")
 			print(word, " was found ", data_handler.get_specific_word(neg_fr, word), " times in the negative reviews\n")
 
@@ -185,12 +183,10 @@ def command(command):
 			else:
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
 	elif command == "predict":
-		done = False
 		classifier.train()  #prepare the classifier
-		while not done:
-			user_input = input("Enter your review or back to return: ")
+		while True:
+			user_input = input("\nEnter your review or back to return: ")
 			if user_input.lower() == "back":
-				done = True
 				return
 			print("Attempting to predict...")
 			print("Your input was: " + user_input + "\n")
@@ -200,14 +196,14 @@ def command(command):
 			print(result[2])
 
 
-	elif command == "help":
-		print(help)
+	elif command == "helpme":
+		print(helpme)
 
 	elif command == "stopwords":
 		done = False
 		print(stop_word_commands)
 		while not done:
-			user_input = input("Type a command. Type help for a list of options: ")
+			user_input = input("Type a command. Type helpme for a list of options: ")
 
 			if user_input.lower() == "info":
 				print(stop_words_info)
@@ -216,7 +212,7 @@ def command(command):
 				print("Going back...")
 				done = True
 
-			elif user_input == "help" or user_input == "commands":
+			elif user_input == "helpme" or user_input == "commands":
 				print(stop_word_commands)
 
 			elif user_input == "clear":
@@ -227,7 +223,7 @@ def command(command):
 				for word in stop_words:
 					print(word)
 			else:
-				print("Did not recognize that command, type help to show a list of commands")
+				print("Did not recognize that command, type helpme to show a list of commands")
 
 
 	elif command == "clear":
@@ -239,7 +235,7 @@ def command(command):
 		print("21  - testing of the code and worked on the report")
 
 	else:  # if a command that doesnt exist is typed in.
-		print(help)
+		print(helpme)
 
 
 def clear_window():
