@@ -191,7 +191,6 @@ def load_test_dataset(use_training_data = False):
 	:param use_stop_words: Optional, False by default - if true stop-words will be used
 	:return:
 	"""
-	#test reviews
 	start_time = time.time()
 	global test_pos_reviews, test_neg_reviews
 
@@ -225,16 +224,18 @@ def load_test_dataset(use_training_data = False):
 	print("It took: "f'{final_time:.2f}'" seconds to load the test dataset\n")
 
 
-def predict_reviews(use_stop_words = False, predict_training_data = False):
+def predict_reviews(use_stop_words = False, classify_training_data = False):
 	"""
 	Predicts all the test reviews
+	:param use_stop_words: False by default, if True - stopwords are used
+	:param classify_training_data: False by default, if True - the training data will be classified
 	:return: a dict with the results, keys are:
 	predicted_positive
 	predicted_negative
 	correct_predictions
 	incorrect_predictions
 	"""
-	load_test_dataset(use_training_data = predict_training_data)
+	load_test_dataset(use_training_data = classify_training_data)
 	predicted_positive = 0
 	predicted_negative = 0
 	correct_predictions = 0
