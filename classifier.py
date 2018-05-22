@@ -1,3 +1,6 @@
+"""
+This file is responsible for classifying movie reviews
+"""
 import math
 import time
 import data_handler
