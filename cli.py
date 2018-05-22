@@ -88,17 +88,17 @@ def command(command):
 		clear_window()
 		while not done:
 			user_input = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
-			                   "1  - predict the test reviews                                          - This will attempt to predict the test reviews\n"
-			                   "2  - Predict test review with stopwords                                - This will attempt to predict the test reviews while using stopwords\n"
-			                   "3  - cleanup                                                           - This will remove all files created by this program\n"
-			                   "back                                                                   - Return back to main menu\n"
-			                   "4  - predict training reviews                                          - This will predict the training data\n"
-			                   "5  - predict training reviews with stopwords                           - This will predict the training data with stopwords\n"
-			                   "6  - predict training reviews with testing dataset                     - This will classify the training reviews, using the testing data for the classifier\n"
-			                   "7  - predict training reviews with testing dataset, using stopwords    - This will classify the training reviews, using the testing data for the classifier and stopwords\n"
-			                   "8  - predict testing reviews with testing dataset                      - This will classify the testing reviews, using the testing data for the classifier\n"
-			                   "9  - predict testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n"
-			                   "10 - all                                                               - This will run all the tests\n")
+			                   "1  - classify the test reviews                                          - This will classify the test reviews\n"
+			                   "2  - classify test review with stopwords                                - This will classify the test reviews while using stopwords\n"
+			                   "3  - cleanup                                                            - This will remove all files created by this program\n"
+			                   "4  - classify training reviews                                          - This will classify the training data\n"
+			                   "5  - classify training reviews with stopwords                           - This will classify the training data with stopwords\n"
+			                   "6  - classify training reviews with testing dataset                     - This will classify the training reviews, using the testing data for the classifier\n"
+			                   "7  - classify training reviews with testing dataset, using stopwords    - This will classify the training reviews, using the testing data for the classifier and stopwords\n"
+			                   "8  - classify testing reviews with testing dataset                      - This will classify the testing reviews, using the testing data for the classifier\n"
+			                   "9  - classify testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n"
+			                   "10 - all                                                                - This will run all the tests\n"
+			                   "back                                                                    - Return back to main menu\n")
 			user_input = user_input.lower()
 			print("Running ", user_input)
 			if user_input == "1":
@@ -184,7 +184,7 @@ def command(command):
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
 	elif command == "predict":
 		done = False
-		classifier.train() #prepare the classifier
+		classifier.train()  #prepare the classifier
 		while not done:
 			user_input = input("Enter your review or back to return: ")
 			if user_input.lower() == "back":
