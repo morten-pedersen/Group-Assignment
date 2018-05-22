@@ -24,7 +24,7 @@ def predict_input(review):
 	:param review: the input from the user, a string
 	:return: a list with the results
 	"""
-	review_as_a_list = data_handler.get_words_from_input(review)
+	review_as_a_list = data_handler.process_words_from_input(review)
 	pos_prediction = make_class_prediction(review_as_a_list, pos_words_dict, prob_positive, positive_review_count)
 	neg_prediction = make_class_prediction(review_as_a_list, neg_words_dict, prob_negative, negative_review_count)
 	predicted_result = decide_outcome(pos_prediction, neg_prediction)
@@ -170,7 +170,7 @@ def process_training_data(use_testing_data = False):
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative
 
-	training_data = data_handler.get_training_words(use_testing_data = use_testing_data)
+	training_data = data_handler.get_training_data(use_testing_data = use_testing_data)
 	pos_words_dict = data_handler.count_text(training_data[0])
 	neg_words_dict = data_handler.count_text(training_data[1])
 	positive_review_count = training_data[2]
