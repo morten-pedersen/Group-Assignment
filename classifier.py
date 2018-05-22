@@ -4,7 +4,6 @@ import data_handler
 from stop_words import get_stop_words
 
 stop_words = get_stop_words('english')  #import and declare the stopwords
-#Storing these variables in RAM for better performance
 training_data = None
 pos_words_dict = None
 neg_words_dict = None
@@ -16,15 +15,15 @@ test_pos_reviews = None
 test_neg_reviews = None
 
 
-def predict_input(text):
+def predict_input(review):
 	"""
 	This function will attempt to predict whether a review that is written by the user is positive or negative.
-	:param text: the input from the user
-	:return: a set with the results.
+	:param review: the input from the user, a string
+	:return: a list with the results
 	"""
-	list_of_words = data_handler.get_words_from_input(text)
-	pos_prediction = make_class_prediction(list_of_words, pos_words_dict, prob_positive, positive_review_count)
-	neg_prediction = make_class_prediction(list_of_words, neg_words_dict, prob_negative, negative_review_count)
+	review_as_a_list = data_handler.get_words_from_input(review)
+	pos_prediction = make_class_prediction(review_as_a_list, pos_words_dict, prob_positive, positive_review_count)
+	neg_prediction = make_class_prediction(review_as_a_list, neg_words_dict, prob_negative, negative_review_count)
 	predicted_result = decide_outcome(pos_prediction, neg_prediction)
 	if predicted_result == 1:
 		predicted_result = "positive"
@@ -38,43 +37,48 @@ def predict_input(text):
 	return results
 
 
-def make_class_prediction(text, review_wordcount_dict, review_probability, number_of_reviews, use_stop_words = False):
+def make_class_prediction(review, review_wordcount_dict, review_probability, number_of_reviews, use_stop_words = False):
 	"""
 	This will calculate the positive or negative review's value by looking at the frequency of the words in the training
 	data
-	:param text: the review as a list
+	:param review: the review as a list or a dictionary with words as keys and their frequency as values
 	:param review_wordcount_dict: the frequency of the words as a dictionary where the keys are the words
 	:param review_probability: the prior probability
 	:param number_of_reviews: the total number of positive or negative reviews
+	:param use_stop_words: False by default, if True it will ignore words that are stop-words
 	:return: the predicted value
 	"""
 	prediction = 1
-	if type(text) is list: # if it is a list it is not counted, should just be the case for user input
-		text_WC_dict = data_handler.count_text(text)
-	else: # it is already counted and does not need to be counted again
-		text_WC_dict = text
+	if type(review) is list:  # if it is a list it is not counted, should just be the case for user input
+		text_WC_dict = data_handler.count_text(review)
+	else:  # it is already counted and does not need to be counted again
+		text_WC_dict = review
 	divide_with_this = (sum(review_wordcount_dict.values()) + number_of_reviews)
 	# to improve performance, this calculation is done once here and called divide_with_this
 	# summing up all the values in the dictionary for every word makes the prediction very slow and is not needed.
-	if not use_stop_words:
+	if not use_stop_words:  # not using stop-words
 		for word in text_WC_dict:
 			prediction += math.log(
 				text_WC_dict.get(word, 0) * ((review_wordcount_dict.get(word, 0) + 1) / divide_with_this))
-	else:
 
+	else:  # using stopwords - skipping the words that are stop-words
 		for word in text_WC_dict:
 			if word not in stop_words:
 				prediction += math.log(
 					text_WC_dict.get(word, 0) * ((review_wordcount_dict.get(word, 0) + 1) / divide_with_this))
-	return prediction * review_probability
+	return prediction * review_probability  #multiply the probability with the prior probability
 
 
-def classify(text, use_stop_words = False):
-	# P(xi|H) the likelyhood or the probability of predictor (a word) given hypothesis (positive review), adding 1 to
-	# smooth the value so we dont multiply the prediction by 0 if the word didn't exist in the training data
-	negative_prediction = make_class_prediction(text, neg_words_dict, prob_negative, negative_review_count,
+def classify(review, use_stop_words = False):
+	"""
+	This function will classify a review
+	:param review: the review
+	:param use_stop_words: Optional, False by default - if true stop-words will be used
+	:return: 1 if positive, -1 if negative
+	"""
+	negative_prediction = make_class_prediction(review, neg_words_dict, prob_negative, negative_review_count,
 	                                            use_stop_words = use_stop_words)
-	positive_prediction = make_class_prediction(text, pos_words_dict, prob_positive, positive_review_count,
+	positive_prediction = make_class_prediction(review, pos_words_dict, prob_positive, positive_review_count,
 	                                            use_stop_words = use_stop_words)
 
 	return decide_outcome(positive_prediction, negative_prediction)
@@ -96,15 +100,21 @@ def decide_outcome(positive_prediction, negative_prediction):
 def train(use_testing_data = False):
 	"""
 	This will attempt to load the classifier and declare the variables,
-	if it is unable to do so it will load the data and save it as classifier.trained
-	:return:
+	if it is unable to do so it will process the data and save it as classifier.trained
+	:param use_stop_words: Optional, False by default - if true stop-words will be used
+	:return: a dictionary with the following:
+		"pos_words_dict":pos_words_dict,
+		"neg_words_dict":neg_words_dict,
+		"positive_review_count":positive_review_count,
+		"negative_review_count":negative_review_count,
+		"prob_positive":prob_positive,
+		"prob_negative":prob_negative
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative, test_pos_reviews, test_neg_reviews
 	start_time = time.time()
 	if use_testing_data == False:
 		try:
 			data = data_handler.load_object("classifier.trained")
-
 			pos_words_dict = data["pos_words_dict"]
 			neg_words_dict = data["neg_words_dict"]
 			positive_review_count = data["positive_review_count"]
@@ -133,7 +143,7 @@ def train(use_testing_data = False):
 			data_handler.save_object(data, "classifier_from_testing_data.trained")
 
 	final_time = time.time() - start_time
-	print("It took: "f'{final_time:.2f}'" seconds to load the classifier\n")  # TODO REMOVE BEFORE SUBMITTING??
+	print("It took: "f'{final_time:.2f}'" seconds to load the classifier\n")
 	return {
 		"pos_words_dict":pos_words_dict,
 		"neg_words_dict":neg_words_dict,
@@ -146,8 +156,14 @@ def train(use_testing_data = False):
 def process_training_data(use_testing_data = False):
 	"""
 	This will process the training data and prepare it for the classifier
-	:return: pos_words_dict, neg_words_dict, positive_review_count,
-			negative_review_count, prob_positive, prob_negative
+	:param use_stop_words: Optional, False by default - if true stop-words will be used
+	:return: a dictionary with the following:
+		"pos_words_dict":pos_words_dict,
+		"neg_words_dict":neg_words_dict,
+		"positive_review_count":positive_review_count,
+		"negative_review_count":negative_review_count,
+		"prob_positive":prob_positive,
+		"prob_negative":prob_negative
 	"""
 	global pos_words_dict, neg_words_dict, positive_review_count, negative_review_count, prob_positive, prob_negative
 
@@ -172,6 +188,7 @@ def process_training_data(use_testing_data = False):
 def load_test_dataset(use_training_data = False):
 	"""
 	This will load the test dataset from test.data if possible, else it will process it and create that file.
+	:param use_stop_words: Optional, False by default - if true stop-words will be used
 	:return:
 	"""
 	#test reviews
@@ -206,7 +223,6 @@ def load_test_dataset(use_training_data = False):
 			data_handler.save_object(test_data, "training.dataset")
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to load the test dataset\n")
-	return test_pos_reviews, test_neg_reviews
 
 
 def predict_reviews(use_stop_words = False, predict_training_data = False):
