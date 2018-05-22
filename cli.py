@@ -1,5 +1,7 @@
+"""
+This file is dedicated to handle the CLI
+"""
 import os
-
 from stop_words import get_stop_words
 import main
 import data_handler
@@ -26,8 +28,7 @@ def command(command):
 		"""
 
 	stop_words_info = "Stop words are words that doesn't have any negative or positive meaning.\n"\
-	                  "It can be helpful to use stopwords to remove data that shouldn't impact the prediction.\n"\
-	                  "It can help performance and has an impact on the result.\n"\
+	                  "These words can have a negative impact on the accuracy if they are used more in one of the types of reviews\n"\
 	                  "The way we handle stop-words is to just skip skip words that are found in the list of stop-words."
 
 	stop_word_commands = """				Available commands are:
@@ -85,72 +86,59 @@ def command(command):
 	elif command == "run":
 		done = False
 		clear_window()
-		while not done:  #TODO finish commands
+		while not done:
 			user_input = input("Which function do you want to run? Use the numbers to select. Type back to return\n"
-			                   "1  - train                                                             - This will attempt to load the preprocessed training data from the file, if it can't it will process it and save it as a file \n"
-			                   "2  - load test data                                                    - this will load the test data from the file test.data if possible, if it can't it will process the test data and save it as test.data\n"
-			                   "3  - predict the test reviews                                          - This will attempt to predict the test reviews\n"
-			                   "4  - Predict test review with stopwords                                - This will attempt to predict the test reviews while using stopwords\n"
-			                   "5  - cleanup                                                           - This will remove all files created by this program\n"
+			                   "1  - predict the test reviews                                          - This will attempt to predict the test reviews\n"
+			                   "2  - Predict test review with stopwords                                - This will attempt to predict the test reviews while using stopwords\n"
+			                   "3  - cleanup                                                           - This will remove all files created by this program\n"
 			                   "back                                                                   - Return back to main menu\n"
-			                   "6  - predict training reviews                                          - This will predict the training data\n"
-			                   "7  - predict training reviews with stopwords                           - This will predict the training data with stopwords\n"
-			                   "8  - predict training reviews with testing dataset                     - This will classify the training reviews, using the testing data for the classifier\n"
-			                   "9  - predict training reviews with testing dataset, using stopwords    - This will classify the training reviews, using the testing data for the classifier and stopwords\n"
-			                   "10 - predict testing reviews with testing dataset                      - This will classify the testing reviews, using the testing data for the classifier\n"
-			                   "11 - predict testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n"
-			                   "12 - all                                                               - This will run all the tests\n")
+			                   "4  - predict training reviews                                          - This will predict the training data\n"
+			                   "5  - predict training reviews with stopwords                           - This will predict the training data with stopwords\n"
+			                   "6  - predict training reviews with testing dataset                     - This will classify the training reviews, using the testing data for the classifier\n"
+			                   "7  - predict training reviews with testing dataset, using stopwords    - This will classify the training reviews, using the testing data for the classifier and stopwords\n"
+			                   "8  - predict testing reviews with testing dataset                      - This will classify the testing reviews, using the testing data for the classifier\n"
+			                   "9  - predict testing reviews with testing dataset, using stopwords     - This will classify the testing reviews, using the testing data for the classifier and stop-words\n"
+			                   "10 - all                                                               - This will run all the tests\n")
 			user_input = user_input.lower()
 			print("Running ", user_input)
 			if user_input == "1":
-				classifier.train()
-				print("Classifier is ready.")
-
-			elif user_input == "2":
-				classifier.load_test_dataset()
-				print("Test data is ready.")
-
-			elif user_input == "3":
 				print("Attempting to classify the test reviews. This may take a while.")
 				testing.test_predict_test_dataset()
-
-			elif user_input == "4":
+			elif user_input == "2":
 				print("Attempting to classify the test reviews while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_stopwords()
 
-			elif user_input == "5":
+			elif user_input == "3":
 				data_handler.cleanup_files()
 
-			elif user_input == "back":
-				done = True
-				print("Returning to previous section...")
-
-			elif user_input == "6":
+			elif user_input == "4":
 				print("Attempting to classify the training reviews. This may take a while.")
 				testing.test_predict_train_dataset()
 
-			elif user_input == "7":
+			elif user_input == "5":
 				print("Attempting to classify the training reviews with stopwords. This may take a while.")
 				testing.test_predict_train_dataset_with_stopwords()
-			elif user_input == "8":
+
+			elif user_input == "6":
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier. This may take a while.")
 				testing.test_predict_train_dataset_with_testing_data()
-			elif user_input == "9":
+			elif user_input == "7":
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
 				testing.test_predict_train_dataset_with_testing_data_with_stopwords()
-			elif user_input == "10":
+
+			elif user_input == "8":
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier. This may take a while.")
 				testing.test_predict_test_dataset_with_testing_data()
 
-			elif user_input == "11":
+			elif user_input == "9":
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
 
-			elif user_input == "12":
+			elif user_input == "10":
 				line = "_____________________________________________________________________________________________________________________________"
 				print("Attempting to classify the test reviews. This may take a while.")
 				testing.test_predict_test_dataset()
@@ -159,28 +147,38 @@ def command(command):
 				print("Attempting to classify the test reviews while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_stopwords()
 				print(line)
+
 				print("Attempting to classify the training reviews. This may take a while.")
 				testing.test_predict_train_dataset()
 				print(line)
+
 				print("Attempting to classify the training reviews with stopwords. This may take a while.")
 				testing.test_predict_train_dataset_with_stopwords()
 				print(line)
+
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier. This may take a while.")
 				testing.test_predict_train_dataset_with_testing_data()
 				print(line)
+
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
 				testing.test_predict_train_dataset_with_testing_data_with_stopwords()
 				print(line)
+
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier. This may take a while.")
 				testing.test_predict_test_dataset_with_testing_data()
 				print(line)
+
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
 				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
 				print(line)
+
+			elif user_input == "back":
+				done = True
+				print("Returning to previous section...")
 
 			else:
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
@@ -244,10 +242,7 @@ def command(command):
 
 def clear_window():
 	"""
-	This function will write 100 blank lines to clear the window and then use system call.
-	Doing both cause pycharm
+	This will clear the console window, does not work in pycharm. Should work on all Operating systems.
 	:return:
 	"""
-	cls = lambda:print('\n' * 100)
-	cls()
 	os.system('cls' if os.name == 'nt' else 'clear')
