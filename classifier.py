@@ -7,7 +7,6 @@ import data_handler
 from stop_words import get_stop_words
 
 stop_words = get_stop_words('english')  #import and declare the stopwords
-training_data = None
 pos_words_dict = None
 neg_words_dict = None
 positive_review_count = None
