@@ -22,7 +22,6 @@ def predict_input(text):
 	:param text: the input from the user
 	:return: a set with the results.
 	"""
-	train()  #this will attempt to load from file
 	list_of_words = data_handler.get_words_from_input(text)
 	pos_prediction = make_class_prediction(list_of_words, pos_words_dict, prob_positive, positive_review_count)
 	neg_prediction = make_class_prediction(list_of_words, neg_words_dict, prob_negative, negative_review_count)

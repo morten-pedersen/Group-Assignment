@@ -186,6 +186,7 @@ def command(command):
 				print("Couldn't run ", user_input, " Maybe you spelled it wrong?\n")
 	elif command == "predict":
 		done = False
+		classifier.train() #prepare the classifier
 		while not done:
 			user_input = input("Enter your review or back to return: ")
 			if user_input.lower() == "back":
