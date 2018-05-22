@@ -103,77 +103,77 @@ def command(command):
 			print("Running ", user_input)
 			if user_input == "1":
 				print("Attempting to classify the test reviews. This may take a while.")
-				testing.test_predict_test_dataset()
+				testing.test_classify_test_dataset()
 			elif user_input == "2":
 				print("Attempting to classify the test reviews while using stop-words. This may take a while.")
-				testing.test_predict_test_dataset_with_stopwords()
+				testing.test_classify_test_dataset_with_stopwords()
 
 			elif user_input == "3":
 				data_handler.cleanup_files()
 
 			elif user_input == "4":
 				print("Attempting to classify the training reviews. This may take a while.")
-				testing.test_predict_train_dataset()
+				testing.test_classify_train_dataset()
 
 			elif user_input == "5":
 				print("Attempting to classify the training reviews with stopwords. This may take a while.")
-				testing.test_predict_train_dataset_with_stopwords()
+				testing.test_classify_train_dataset_with_stopwords()
 
 			elif user_input == "6":
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier. This may take a while.")
-				testing.test_predict_train_dataset_with_testing_data()
+				testing.test_classify_train_dataset_with_testing_data()
 			elif user_input == "7":
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
-				testing.test_predict_train_dataset_with_testing_data_with_stopwords()
+				testing.test_classify_train_dataset_with_testing_data_with_stopwords()
 
 			elif user_input == "8":
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier. This may take a while.")
-				testing.test_predict_test_dataset_with_testing_data()
+				testing.test_classify_test_dataset_with_testing_data()
 
 			elif user_input == "9":
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
-				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
+				testing.test_classify_test_dataset_with_testing_data_using_stopwords()
 
 			elif user_input == "10":
 				line = "_____________________________________________________________________________________________________________________________"
 				print("Attempting to classify the test reviews. This may take a while.")
-				testing.test_predict_test_dataset()
+				testing.test_classify_test_dataset()
 				print(line)
 
 				print("Attempting to classify the test reviews while using stop-words. This may take a while.")
-				testing.test_predict_test_dataset_with_stopwords()
+				testing.test_classify_test_dataset_with_stopwords()
 				print(line)
 
 				print("Attempting to classify the training reviews. This may take a while.")
-				testing.test_predict_train_dataset()
+				testing.test_classify_train_dataset()
 				print(line)
 
 				print("Attempting to classify the training reviews with stopwords. This may take a while.")
-				testing.test_predict_train_dataset_with_stopwords()
+				testing.test_classify_train_dataset_with_stopwords()
 				print(line)
 
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier. This may take a while.")
-				testing.test_predict_train_dataset_with_testing_data()
+				testing.test_classify_train_dataset_with_testing_data()
 				print(line)
 
 				print(
 					"Attempting to classify training dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
-				testing.test_predict_train_dataset_with_testing_data_with_stopwords()
+				testing.test_classify_train_dataset_with_testing_data_with_stopwords()
 				print(line)
 
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier. This may take a while.")
-				testing.test_predict_test_dataset_with_testing_data()
+				testing.test_classify_test_dataset_with_testing_data()
 				print(line)
 
 				print(
 					"Attempting to classify testing dataset while using the testing dataset for the classifier, while using stop-words. This may take a while.")
-				testing.test_predict_test_dataset_with_testing_data_using_stopwords()
+				testing.test_classify_test_dataset_with_testing_data_using_stopwords()
 				print(line)
 
 			elif user_input == "back":

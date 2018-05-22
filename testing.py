@@ -1,11 +1,13 @@
+"""
+This file is responsible for running and timing the different types of tests, as well as measuring accuracy.
+"""
 import time
 import classifier
 
 
-def test_predict_test_dataset():
+def test_classify_test_dataset():
 	"""
 	This will attempt to classify the test dataset
-	:return:
 	"""
 	start_time = time.time()
 	classifier.train()
@@ -17,7 +19,7 @@ def test_predict_test_dataset():
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
 
-def test_predict_test_dataset_with_stopwords():
+def test_classify_test_dataset_with_stopwords():
 	"""
 	This test will attempt to classify the test dataset while using stopwords
 	"""
@@ -32,10 +34,9 @@ def test_predict_test_dataset_with_stopwords():
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
 
-def test_predict_train_dataset():
+def test_classify_train_dataset():
 	"""
-	This will attempt to classify the test dataset
-	:return:
+	This will attempt to classify the training dataset
 	"""
 	start_time = time.time()
 	classifier.train()
@@ -47,10 +48,9 @@ def test_predict_train_dataset():
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
 
-def test_predict_train_dataset_with_stopwords():
+def test_classify_train_dataset_with_stopwords():
 	"""
-	This will attempt to classify the test dataset
-	:return:
+	This will attempt to classify the training dataset with stop-words
 	"""
 	start_time = time.time()
 	classifier.train()
@@ -61,7 +61,11 @@ def test_predict_train_dataset_with_stopwords():
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
-def test_predict_train_dataset_with_testing_data():
+
+def test_classify_train_dataset_with_testing_data():
+	"""
+	This will attempt to classify the training dataset, using the testing dataset to train
+	"""
 	start_time = time.time()
 	classifier.train(use_testing_data = True)
 	number_of_reviews = classifier.negative_review_count + classifier.positive_review_count
@@ -71,7 +75,11 @@ def test_predict_train_dataset_with_testing_data():
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
-def test_predict_train_dataset_with_testing_data_with_stopwords():
+
+def test_classify_train_dataset_with_testing_data_with_stopwords():
+	"""
+	This will attempt to classify the training dataset, using the testing dataset to train - with stop-words
+	"""
 	start_time = time.time()
 	classifier.train(use_testing_data = True)
 	number_of_reviews = classifier.negative_review_count + classifier.positive_review_count
@@ -81,7 +89,11 @@ def test_predict_train_dataset_with_testing_data_with_stopwords():
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
-def test_predict_test_dataset_with_testing_data():
+
+def test_classify_test_dataset_with_testing_data():
+	"""
+	This will attempt to classify the testing dataset, using the testing dataset to train
+	"""
 	start_time = time.time()
 	classifier.train(use_testing_data = True)
 	number_of_reviews = classifier.negative_review_count + classifier.positive_review_count
@@ -91,7 +103,11 @@ def test_predict_test_dataset_with_testing_data():
 	final_time = time.time() - start_time
 	print("It took: "f'{final_time:.2f}'" seconds to run\n")
 
-def test_predict_test_dataset_with_testing_data_using_stopwords():
+
+def test_classify_test_dataset_with_testing_data_using_stopwords():
+	"""
+	This will attempt to classify the testing dataset, using the testing dataset to train - using stop-words
+	"""
 	start_time = time.time()
 	classifier.train(use_testing_data = True)
 	number_of_reviews = classifier.negative_review_count + classifier.positive_review_count
