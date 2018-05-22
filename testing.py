@@ -2,6 +2,7 @@
 This file is responsible for running and timing the different types of tests, as well as measuring accuracy.
 """
 import time
+
 import classifier
 
 

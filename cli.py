@@ -2,10 +2,12 @@
 This file is dedicated to handle the CLI
 """
 import os
+
 from stop_words import get_stop_words
-import main
-import data_handler
+
 import classifier
+import data_handler
+import main
 import testing
 
 

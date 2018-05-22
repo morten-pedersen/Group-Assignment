@@ -4,8 +4,9 @@ This file is responsible for handling of data, loading, processing, saving and o
 import os
 import pickle
 import re
-import main
 from collections.__init__ import Counter
+
+import main
 
 
 def get_test_data(use_training_data = False):

@@ -3,8 +3,10 @@ This file is responsible for classifying movie reviews
 """
 import math
 import time
-import data_handler
+
 from stop_words import get_stop_words
+
+import data_handler
 
 stop_words = get_stop_words('english')  #import and declare the stopwords
 pos_words_dict = None
